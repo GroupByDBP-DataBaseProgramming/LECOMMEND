@@ -1,9 +1,1 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8" />
-</head>
-<body>
-	
-</body>
-</html>
+<% response.sendRedirect(request.getContextPath() + "/home"); %>
