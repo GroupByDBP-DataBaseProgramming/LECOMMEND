@@ -18,13 +18,31 @@ public class SearchResultLectureController implements Controller {
 			LectureManager manager = LectureManager.getInstance();
 
 			List<LectureDTO> hotLecList = manager.findLecturesTop5();
-			List<LectureDTO> lecList = manager.findLectureByKeyword(request.getParameter("loc").substring(0, 1),
-					request.getParameter("week"), request.getParameter("lecTime").substring(0, 1),
-					Integer.parseInt(request.getParameter("occupancy")),
-					Integer.parseInt(request.getParameter("credit")), request.getParameter("onOff"),
-					request.getParameter("lecType"), request.getParameter("interest"),
-					request.getParameter("examType"));
-
+			List<LectureDTO> lecList = new ArrayList<LectureDTO>();
+			
+			if (request.getParameter("priority").equals("p1")) {
+				lecList = manager.findLectureByKeywordWithPriority01(request.getParameter("loc").substring(0, 1),
+						request.getParameter("week"), request.getParameter("lecTime").substring(0, 1),
+						Integer.parseInt(request.getParameter("occupancy")),
+						Integer.parseInt(request.getParameter("credit")), request.getParameter("onOff"),
+						request.getParameter("lecType"), request.getParameter("interest"),
+						request.getParameter("examType"));
+			} else if (request.getParameter("priority").equals("p2")) {
+				lecList = manager.findLectureByKeywordWithPriority02(request.getParameter("loc").substring(0, 1),
+						request.getParameter("week"), request.getParameter("lecTime").substring(0, 1),
+						Integer.parseInt(request.getParameter("occupancy")),
+						Integer.parseInt(request.getParameter("credit")), request.getParameter("onOff"),
+						request.getParameter("lecType"), request.getParameter("interest"),
+						request.getParameter("examType"));
+			} else if (request.getParameter("priority").equals("p3")) {
+				lecList = manager.findLectureByKeywordWithPriority03(request.getParameter("loc").substring(0, 1),
+						request.getParameter("week"), request.getParameter("lecTime").substring(0, 1),
+						Integer.parseInt(request.getParameter("occupancy")),
+						Integer.parseInt(request.getParameter("credit")), request.getParameter("onOff"),
+						request.getParameter("lecType"), request.getParameter("interest"),
+						request.getParameter("examType"));
+			}
+			
 			ArrayList<String> keywordList = new ArrayList<String>();
 			keywordList.add("강의실: " + request.getParameter("loc"));
 			keywordList.add("요일: " + request.getParameter("week"));

@@ -5,6 +5,9 @@
 
 
 <%
+String[] priorityList = { "관심사 AND 강의실", "관심사 AND 강의형식", "관심사 AND 시간대" };
+request.setAttribute("priorityList", priorityList);
+
 String[] locList = { "대학원", "동인관", "인문관", "약학관", "숭인관", "예지관", "백주년" };
 request.setAttribute("locList", locList);
 
@@ -53,17 +56,41 @@ request.setAttribute("onOffList", onOffList);
 	<jsp:include page="../header.jsp"></jsp:include>
 	<jsp:include page="../nav.jsp"></jsp:include>
 
-	<form name="filterForm" method="POST" action="<c:url value='/lecture/searchResult'/>">
+	<form name="filterForm" method="POST"
+		action="<c:url value='/lecture/searchResult'/>">
 		<table class="keywordTable">
+			<tr>
+				<td class="keywordCatagory">🌟 중요도</td>
+				<td>
+					<div class="btn-group-toggle keywords" data-toggle="buttons">
+						
+							<label class="btn btn-primary keywordBtn"> <input
+								type="radio" name="priority" value="p1" required>
+								관심사 + 강의실
+							</label>
+							
+							<label class="btn btn-primary keywordBtn"> <input
+								type="radio" name="priority" value="p2" required>
+								관심사 + 강의 형식
+							</label>
+							
+							<label class="btn btn-primary keywordBtn"> <input
+								type="radio" name="priority" value="p3" required>
+								관심사 + 시간대
+							</label>
+						
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<td class="keywordCatagory">🏫 강의실</td>
 				<td>
+
 					<div class="btn-group-toggle keywords" data-toggle="buttons">
 						<c:forEach var="loc" items="${locList}">
 							<label class="btn btn-primary keywordBtn"> <input
-								type="radio" name="loc" 
-								value="${ loc }" required> ${loc}
-								<!-- value="${ fn:substring(loc,0,1) }"> ${loc} -->
+								type="radio" name="loc" value="${ loc }" required>
+								${loc} <!-- value="${ fn:substring(loc,0,1) }"> ${loc} -->
 							</label>
 						</c:forEach>
 					</div>
@@ -88,9 +115,8 @@ request.setAttribute("onOffList", onOffList);
 					<div class="btn-group-toggle keywords" data-toggle="buttons">
 						<c:forEach var="lecTime" items="${lecTimeList}">
 							<label class="btn btn-primary keywordBtn"> <input
-								type="radio" name="lecTime"
-								value="${ lecTime }" required> ${lecTime}
-								<!-- value="${ fn:substring(lecTime,0,1) }"> ${lecTime} -->
+								type="radio" name="lecTime" value="${ lecTime }" required>
+								${lecTime} <!-- value="${ fn:substring(lecTime,0,1) }"> ${lecTime} -->
 							</label>
 						</c:forEach>
 					</div>
@@ -128,8 +154,8 @@ request.setAttribute("onOffList", onOffList);
 					<div class="btn-group-toggle keywords" data-toggle="buttons">
 						<c:forEach var="week" items="${weekList}">
 							<label class="btn btn-primary keywordBtn"> <input
-								type="radio" name="week" value=${ fn:substring(week,0,1) } required>
-								${week}
+								type="radio" name="week" value=${ fn:substring(week,0,1) }
+								required> ${week}
 							</label>
 						</c:forEach>
 					</div>
@@ -142,7 +168,8 @@ request.setAttribute("onOffList", onOffList);
 					<div class="btn-group-toggle keywords" data-toggle="buttons">
 						<c:forEach var="onOff" items="${onOffList}">
 							<label class="btn btn-primary keywordBtn"> <input
-								type="radio" name="onOff" value="${ onOff }" required> ${onOff}
+								type="radio" name="onOff" value="${ onOff }" required>
+								${onOff}
 							</label>
 						</c:forEach>
 					</div>
@@ -188,7 +215,7 @@ request.setAttribute("onOffList", onOffList);
 					</div></td>
 
 			</tr>
-			
+
 
 		</table>
 	</form>

@@ -91,6 +91,18 @@ public class LectureManager {
 		return lecDAO.findLectureByKeyword(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
 	}
 	
+	public List<LectureDTO> findLectureByKeywordWithPriority01(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		return lecDAO.findLectureByKeywordWithPriority01(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
+	}
+	
+	public List<LectureDTO> findLectureByKeywordWithPriority02(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		return lecDAO.findLectureByKeywordWithPriority02(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
+	}
+	
+	public List<LectureDTO> findLectureByKeywordWithPriority03(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		return lecDAO.findLectureByKeywordWithPriority03(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
+	}
+	
 	public List<LectureDTO> recommendLectures(String stuid, String lecid) throws Exception {
 		return lecAanlysis.recommendLectures(stuid, lecid);
 	}
