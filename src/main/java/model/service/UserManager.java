@@ -10,11 +10,11 @@ import model.dto.StudentDTO;
 
 public class UserManager {
 	private static UserManager userMan = new UserManager();
-	private StudentDAO userDAO;
+	private StudentDAO studentDAO;
 
 	private UserManager() {
 		try {
-			userDAO = new StudentDAO();
+			studentDAO = new StudentDAO();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,23 +26,23 @@ public class UserManager {
 	}
 	
 	public int create(StudentDTO user) throws SQLException, ExistingUserException {
-		if (userDAO.existingUser(user.getStuID()) == true) {
+		if (studentDAO.existingUser(user.getStuID()) == true) {
 			throw new ExistingUserException(user.getStuID() + "는 존재하는 아이디입니다.");
 		}
-		return userDAO.create(user);
+		return studentDAO.create(user);
 	}
 
 	public int update(StudentDTO user) throws SQLException, UserNotFoundException {
-		return userDAO.update(user);
+		return studentDAO.update(user);
 	}
 	
 	public int remove(String userId) throws SQLException, UserNotFoundException {
-		return userDAO.remove(userId);
+		return studentDAO.remove(userId);
 	}
 	
 	public StudentDTO findUser(String userId)
 		throws SQLException, UserNotFoundException {
-		StudentDTO user = userDAO.findUser(userId);
+		StudentDTO user = studentDAO.findUser(userId);
 		
 		if (user == null) {
 			throw new UserNotFoundException(userId + "는 존재하지 않는 아이디입니다.");
@@ -51,17 +51,17 @@ public class UserManager {
 	}
 
 	public List<LectureDTO> findStudentDibList(String stuid) throws SQLException {
-			return userDAO.findStudentDibList(stuid);
+			return studentDAO.findStudentDibList(stuid);
 	}
 	
 	public List<LectureDTO> findStudentDibList(int currentPage, int countPerPage, String stuid)
 		throws SQLException {
-		return userDAO.findStudentDibList(currentPage, countPerPage, stuid);
+		return studentDAO.findStudentDibList(currentPage, countPerPage, stuid);
 	}
 
 	public boolean login(String userId, String password)
 		throws SQLException, UserNotFoundException, PasswordMismatchException {
-		StudentDTO user = userDAO.findUser(userId);
+		StudentDTO user = studentDAO.findUser(userId);
 		
 		if (!user.matchPassword(password)) {
 			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
@@ -70,8 +70,8 @@ public class UserManager {
 	}
 	
 	
-	public StudentDAO getUserDAO() {
-		return this.userDAO;
+	public StudentDAO getStudentDAO() {
+		return this.studentDAO;
 	}
 	
 }
