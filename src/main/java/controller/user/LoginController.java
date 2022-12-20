@@ -22,7 +22,7 @@ public class LoginController implements Controller {
 
 			// 세션에 사용자 이이디 저장
 			HttpSession session = request.getSession();
-			session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userId);
+			session.setAttribute("userId", userId);
 
 			return "redirect:/home";
 		} catch (Exception e) {
