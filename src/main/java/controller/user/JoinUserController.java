@@ -30,7 +30,7 @@ public class JoinUserController implements Controller {
        	
  
     	// POST request (회원정보가 parameter로 전송됨)
-       	StudentDTO user = new StudentDTO(
+       	StudentDTO 	user = new StudentDTO(
        		request.getParameter("userId"),
 			request.getParameter("password"),
 			request.getParameter("major"));
