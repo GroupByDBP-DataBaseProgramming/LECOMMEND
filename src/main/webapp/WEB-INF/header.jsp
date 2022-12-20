@@ -73,12 +73,21 @@
 		
 		<div class="login_sign">
 			<!-- if 로그인 상태가 아니라면 -->
-			<a href="<c:url value='/user/login/form' />"><span>Log In</span></a>
-			<a href="<c:url value='/user/join' />"><span class="Sign-Up">Sign Up</span></a>
-			<br>
-			<!-- else 로그인 상태라면 
-			<a href="#"><span>Log Out</span></a>--> 
 			
+			<c:if test="${userId eq null}">
+				<a href="<c:url value='/user/login/form' />" id="header_login"><span>Log In</span></a>
+				<a href="<c:url value='/user/join' />"><span class="Sign-Up">Sign Up</span></a>
+				<br>
+			</c:if>
+			
+			<c:if test="${userId ne null}">
+				<a href="<c:url value='/user/logout' />" id="header_logout"><span>Log Out </span></a>
+			</c:if>
+			
+			<%
+			HttpSession loginSession = request.getSession();
+			System.out.println(loginSession.getAttribute("userId"));
+			%>
 		</div>
 		<hr>
 	</div>

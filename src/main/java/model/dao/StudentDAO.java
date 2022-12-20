@@ -1,5 +1,8 @@
-package model.dao.jdbc;
+package model.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +16,16 @@ import model.dto.StudentDTO;
  * Student 테이블에 사용자 정보를 추가, 수정, 삭제, 검색 수행 
  */
 public class StudentDAO {
+	
+	/* 임시로 */
+	Connection conn = null;
+	PreparedStatement pStmt = null;
+	ResultSet rs = null;
+	String url = "jdbc:oracle:thin:@202.20.119.117:1521:orcl";
+	String user = "dbpr0102";
+	String passwd = "0980";
+	
+	
 	private JDBCUtil jdbcUtil = null;
 	
 	public StudentDAO() {			
@@ -88,22 +101,54 @@ public class StudentDAO {
 	/**
 	 * [R] 주어진 사용자 ID에 해당하는 사용자 정보를 데이터베이스에서 찾아 StudentDTO 도메인 클래스에 저장하여 반환.
 	 */
-	public StudentDTO findUser(String userId) throws SQLException {
-        String sql = "SELECT stuid, stupw, major "
-        			+ "FROM Student "
-        			+ "WHERE userid=? ";              
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {userId});	
+	public StudentDTO findUser(String stuId) throws SQLException {
+		
+		/*
+        String sql = "SELECT STUID, STUPW, MAJOR "
+        			+ "FROM STUDENT "
+        			+ "WHERE STUID=? ";  
+        
+        System.out.println("<findUser> stuID: " + stuId);
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {stuId});	
+		*/
 
 		try {
+			/*
+			System.out.println("학생 찾기 메소드 들어왔다!! ");
+			
 			ResultSet rs = jdbcUtil.executeQuery();		
+			System.out.println("rs.next() : " + rs.next());
+			System.out.println("rs : " + rs);
+			
 			if (rs.next()) {					
-				StudentDTO user = new StudentDTO(		
-					userId,
+				StudentDTO student = new StudentDTO(		
+					stuId,
 					rs.getString("stupw"),
 					rs.getString("major"));
-				return user;
+				
+				return student;
+			}
+			*/
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection(url, user, passwd);
+			
+			String sql = "SELECT STUID, STUPW, MAJOR "
+        			+ "FROM STUDENT "
+        			+ "WHERE STUID=? ";  
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, stuId);
+			rs = pStmt.executeQuery();
+			
+			if (rs.next()) {					
+				StudentDTO student = new StudentDTO(		
+					stuId,
+					rs.getString("stupw"),
+					rs.getString("major"));
+				
+				return student;
 			}
 		} catch (Exception ex) {
+			System.out.println("학생 찾기 메소드 에러 !!");
 			ex.printStackTrace();
 		} finally {
 			jdbcUtil.close();		
