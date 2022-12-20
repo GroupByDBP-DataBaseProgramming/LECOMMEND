@@ -23,44 +23,12 @@
 	padding-top: 20px;
 }
 
-.resultbox {
-	margin-left: 50px;
-	padding: 10px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
-	border: solid 1px #efefef;
-	border-radius: 0.7em;
-	background-color: #efefef;
-	width: 34.375rem;
-	display: inline-block;
-}
-
-.keywordbox {
-	margin: auto;
-}
-
-.hotbox {
+.recommendbox {
 	display: inline-block;
 	float: right;
 	margin-right: 160px;
-	
 }
 
-.keywords {
-	font-size: 12px;
-	font-weight: bold;
-	color: #6f263d;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
-	border: solid 1px #f1f1f1;
-	border-radius: 0.7em;
-	background-color: #fff;
-	margin-left: 20px;
-	margin-bottom: 10px;
-	padding: 3px;
-	text-align: center;
-	width: 18%;
-	float: left;
-	font-weight: bold;
-}
 
 .list {
 	font-weight: bold;
@@ -115,7 +83,6 @@
 .recommend-card {
 	text-align: center;
 	margin-bottom: 10px;
-	
 }
 
 .list-cnt {
@@ -124,66 +91,30 @@
 	margin-bottom: 10px;
 	font-weight: bold;
 	text-align: center;
-
 }
 
-.text-danger{
+.text-danger {
 	text-align: center;
 	font-weight: bold;
 }
-
-
 </style>
 </head>
 <body>
 
-	<jsp:include page="../header.jsp"></jsp:include>
-	<jsp:include page="../nav.jsp"></jsp:include>
-${test}
-	<div class="totalresult">
 	
-		<div class="resultbox">
-			<p class="list-cnt">📦 검색 결과 📦</p>
-			<div class="keywordbox">
-				<c:forEach var="keyword" items="${keywordList}">
-					<div class="keywords">${keyword}</div>
-				</c:forEach>
-			</div>
-			
-			<!-- <div class="list-cnt">총 10건</div> -->
-			<c:if test="${searchFailed}">
-				<h6 class="text-danger">
-					⛔ Keyword를 선택하지 않으셨으므로, 전체 강의를 검색합니다. ⛔
-				</h6>
-			</c:if>
-			
-			<!--  검색 결과 -->
-			<c:forEach var="lec" items="${lecList}">
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> ${lec.title}
-							<button class="btn_delete" type="button">X</button>
-						</span><br> ${lec.professor}
-						<p></p>
-						${lec.lecID} <br>${lec.week}[${lec.lecTime}]
-						${lec.loc}
-						<button class="btn_wish" type="button">♡ 찜하기</button>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
+	<div class="totalresult">
 
 		<!--  인기 있는 강의 List -->
-		<div class="hotbox">
-			<p class="list-cnt">✨인기 있는 강의✨</p>
-			<c:forEach var="hotLec" items="${hotLecList}">
+		<div class="recommendbox">
+			<p class="list-cnt">💞 추천하는 강의 💞</p>
+			<c:forEach var="recLec" items="${recLecList}">
 				<div class="card-border card recommend-card" style="width: 15rem;">
 					<div class="card-body">
-						<h5 class="card-title">${hotLec.title}</h5>
-						${hotLec.professor}
+						<h5 class="card-title">${recLec.title}</h5>
+						${recLec.professor}
 						<p></p>
-						${hotLec.lecID} <br>${hotLec.week}[${hotLec.lecTime}]
-						${hotLec.loc}
+						${recLec.lecID} <br>${recLec.week}[${recLec.lecTime}]
+						${recLec.loc}
 					</div>
 				</div>
 			</c:forEach>
