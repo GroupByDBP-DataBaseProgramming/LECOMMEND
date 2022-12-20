@@ -40,14 +40,14 @@ public class UpdateUserController implements Controller {
 				//List<Community> commList = manager.findCommunityList();	// 커뮤니티 리스트 검색
 				//request.setAttribute("commList", commList);	
 				
-				return "/user/updateForm.jsp";   // 검색한 사용자 정보 및 커뮤니티 리스트를 updateForm으로 전송     
+				return "/user/mypage/updateForm.jsp";   // 검색한 사용자 정보 및 커뮤니티 리스트를 updateForm으로 전송     
 			}    
 			
 			// else (수정 불가능한 경우) 사용자 보기 화면으로 오류 메세지를 전달
 			request.setAttribute("updateFailed", true);
 			request.setAttribute("exception", 
 					new IllegalStateException("타인의 정보는 수정할 수 없습니다."));            
-			return "/user/view.jsp";	// 사용자 보기 화면으로 이동 (forwarding)
+			return "/user/mypage.jsp";	// 사용자 보기 화면으로 이동 (forwarding)
 	    }	
     	
     	// POST request (회원정보가 parameter로 전송됨)
@@ -60,6 +60,6 @@ public class UpdateUserController implements Controller {
 
 		UserManager manager = UserManager.getInstance();
 		manager.update(updateUser);			
-        return "redirect:/user/list";			
+        return "redirect:/user/mypage";			
     }
 }

@@ -24,4 +24,5 @@ public class CreateDibController implements Controller {
 			request.setAttribute("exception", e);
 		}
 		return "";
-	}		
+	}
+}

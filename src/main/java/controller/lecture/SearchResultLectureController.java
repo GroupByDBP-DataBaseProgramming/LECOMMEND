@@ -43,6 +43,8 @@ public class SearchResultLectureController implements Controller {
 						request.getParameter("examType"));
 			}
 			
+			
+			
 			ArrayList<String> keywordList = new ArrayList<String>();
 			keywordList.add("강의실: " + request.getParameter("loc"));
 			keywordList.add("요일: " + request.getParameter("week"));
@@ -52,10 +54,12 @@ public class SearchResultLectureController implements Controller {
 			keywordList.add("OnOff: " + request.getParameter("onOff"));
 			keywordList.add("관심사: " + request.getParameter("interest"));
 			keywordList.add("시험유형: " + request.getParameter("examType"));
-
+			
+			request.setAttribute("lecList", lecList);
 			request.setAttribute("keywordList", keywordList);
 			request.setAttribute("hotLecList", hotLecList);
-			request.setAttribute("lecList", lecList);
+			
+			
 			return "/lecture/searchResult.jsp";
 		} catch (Exception e) {
 
