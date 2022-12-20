@@ -86,6 +86,7 @@ public class JDBCUtil {
 				pstmt.setObject(i + 1, getParameter(i));
 			}
 			rs = pstmt.executeQuery();
+			
 			return rs;
 		} catch (Exception ex) {
 			ex.printStackTrace();

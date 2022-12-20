@@ -47,11 +47,11 @@
 				<h1 class="h2 mb-3 color-point">LEcommend</h1>
 
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingInput"
+					<input type="text" name="stuId" class="form-control" id="floatingInput"
 						placeholder="ID"> <label for="floatingInput">ID</label>
 				</div>
 				<div class="form-floating">
-					<input type="password" class="form-control" id="floatingPassword"
+					<input type="password" name="stuPw" class="form-control" id="floatingPassword"
 						placeholder="Password"> <label for="floatingPassword">Password</label>
 				</div>
 				<button class="w-100 btn btn-lg btn-primary" onClick="login()">Log

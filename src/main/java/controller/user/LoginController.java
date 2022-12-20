@@ -10,8 +10,10 @@ import model.service.UserManager;
 public class LoginController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
+		String userId = request.getParameter("stuId");
+		String password = request.getParameter("stuPw");
+		
+		System.out.println("<Logincontroller> userId: " + userId + " password: " + password);
 
 		try {
 			// 모델에 로그인 처리를 위임
@@ -22,7 +24,7 @@ public class LoginController implements Controller {
 			HttpSession session = request.getSession();
 			session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userId);
 
-			return "redirect:/lecommend/home";
+			return "redirect:/home";
 		} catch (Exception e) {
 			/*
 			 * UserNotFoundException이나 PasswordMismatchException 발생 시 다시 login form을 사용자에게

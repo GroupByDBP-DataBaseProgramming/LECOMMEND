@@ -3,7 +3,7 @@ package model.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.dao.jdbc.StudentDAO;
+import model.dao.StudentDAO;
 import model.dto.LectureDTO;
 import model.dto.StudentDTO;
 
@@ -66,6 +66,7 @@ public class UserManager {
 		if (!user.matchPassword(password)) {
 			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
 		}
+		
 		return true;
 	}
 	
