@@ -471,14 +471,14 @@ public class LectureDAO {
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
 				+ "where (o.interest = ? AND "
-				+ "o.loc LIKE '" + loc + "%') OR "
-				+ "o.week = ? OR "
+				+ "o.loc LIKE '" + loc + "%') AND "
+				+ "(o.week = ? OR "
 				+ "o.lecTime LIKE '%" + lecTime + "%' OR "
 				+ "o.occupancy between ? and ? OR "
 				+ "o.credit = ? OR "
 				+ "o.onOff = ? OR "
 				+ "o.lecType = ? OR "
-				+ "o.examType = ?";
+				+ "o.examType = ?)";
 		
 		Object[] param = new Object[] { interest, week, occupancy-5, occupancy+5, credit, onOff, lecType, examType};				
 		
@@ -516,14 +516,14 @@ public class LectureDAO {
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
 				+ "where (o.interest = ? AND "
-				+ "o.lecType = ?) OR "
-				+ "o.loc LIKE '" + loc + "%' OR "
+				+ "o.lecType = ?) AND "
+				+ "(o.loc LIKE '" + loc + "%' OR "
 				+ "o.week = ? OR "
 				+ "o.lecTime LIKE '%" + lecTime + "%' OR "
 				+ "o.occupancy between ? and ? OR "
 				+ "o.credit = ? OR "
 				+ "o.onOff = ? OR "
-				+ "o.examType = ?";
+				+ "o.examType = ?)";
 		
 		Object[] param = new Object[] { interest, lecType, week, occupancy-5, occupancy+5, credit, onOff, examType};				
 		
@@ -561,14 +561,14 @@ public class LectureDAO {
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
 				+ "where (o.interest = ? AND "
-				+ "o.lecTime LIKE '%" + lecTime + "%') OR "
-				+ "o.loc LIKE '" + loc + "%' OR "
+				+ "o.lecTime LIKE '%" + lecTime + "%') AND "
+				+ "(o.loc LIKE '" + loc + "%' OR "
 				+ "o.week = ? OR "
 				+ "o.occupancy between ? and ? OR "
 				+ "o.credit = ? OR "
 				+ "o.onOff = ? OR "
 				+ "o.lecType = ? OR "
-				+ "o.examType = ?";
+				+ "o.examType = ?)";
 		
 		Object[] param = new Object[] { interest, week, occupancy-5, occupancy+5, credit, onOff, lecType, examType};				
 		

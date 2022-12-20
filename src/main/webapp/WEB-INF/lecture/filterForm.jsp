@@ -5,8 +5,7 @@
 
 
 <%
-String[] priorityList = { "관심사 AND 강의실", "관심사 AND 강의형식", "관심사 AND 시간대" };
-request.setAttribute("priorityList", priorityList);
+
 
 String[] locList = { "대학원", "동인관", "인문관", "약학관", "숭인관", "예지관", "백주년" };
 request.setAttribute("locList", locList);

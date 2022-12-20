@@ -57,7 +57,7 @@
 			<h1 class="h2 mb-3 color-point">LEcommend 회원가입</h1>
 			<div class="input-form col-md-12 mx-auto">
 
-				<form name="joinform" method="POST" action="<c:url value='/user/register'/>">
+				<form name="joinform" method="POST" action="#">
 					<div class="form-group mb-3">
 						<label for="userId">ID (학번)</label> <input type="text"
 							class="form-control" name="userId" id="userId" placeholder=""
