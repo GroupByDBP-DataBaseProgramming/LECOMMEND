@@ -24,10 +24,15 @@ public class RequestMapping {
         mappings.put("/user/login", new LoginController());
         mappings.put("/user/logout", new LogoutController());
         
+
+        mappings.put("/user/mypage", new myPageController());
+        //mappings.put("/user/mypage", new ForwardController("/user/mypage.jsp"));
+        mappings.put("/user/mypage/edit", new UpdateUserController());
+        //mappings.put("/user/mypage/dibList", new dibListController());
+        //mappings.put("/user/mypage/recList", new recListController());
         
-        //mappings.put("/user/mypage", new myPageController());
-        mappings.put("/user/mypage", new ForwardController("/user/mypage.jsp"));
-        mappings.put("/user/mypage/edit", new ForwardController("/user/updateForm.jsp"));
+        //mappings.put("/user/mypage/edit/form", new ForwardController("/user/updateForm.jsp"));
+        //mappings.put("/user/mypage/edit", new UpdateUserController());
         
         //mappings.put("/user/mypage/update", new UpdateUserController());
         //mappings.put("/user/list", new ListUserController());

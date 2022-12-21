@@ -81,7 +81,7 @@
 			</c:if>
 			
 			<c:if test="${userId ne null}">
-				<a href="<c:url value='/user/logout' />" id="header_logout"><span>Log Out </span></a>
+				${userId}님 &nbsp;&nbsp; <a href="<c:url value='/user/logout' />" id="header_logout"><span>Log Out </span></a>
 			</c:if>
 			
 			<%
