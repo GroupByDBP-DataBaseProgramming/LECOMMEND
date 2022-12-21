@@ -40,7 +40,7 @@
 	color: #6f263d;
 }
 
-.btn_wish {
+.btn_wish, .btn_status {
 	float: right;
 	color: white;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
@@ -51,12 +51,25 @@
 	font-weight: bold;
 }
 
-.btn_wish:hover {
+.btn_wish:hover, .btn_status:hover {
 	font-weight: bold;
 	border: 1px solid #6f263d;
 	background-color: #fff;
 	color: #6f263d;
 	transition-duration: 1s;
+}
+
+.btn_status {
+	margin-right: 5px;
+} 
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+a:hover {
+	color: #6f263d;
 }
 
 .card-border {
@@ -103,9 +116,18 @@
 	text-align: center;
 	font-weight: bold;
 }
-
-
 </style>
+
+<script>
+	function tookClass() {
+		if (form.password.value == "") {
+			alert("비밀번호를 입력하십시오.");
+			form.password.focus();
+			return false;
+		}
+		form.submit();
+	}
+</script>
 </head>
 <body>
 
@@ -121,8 +143,6 @@
 				</h6>
 			</c:if>
 			
-			
-			
 			<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">
 						<span class="card-title"> 데베프
@@ -131,54 +151,13 @@
 						<p></p>
 						화, 수
 						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
+						<%-- <button class="btn_status" type="button">️
+							<a href="<c:url value='/user/createStatus' />">이미 수강함</a>
+						</button> --%>
+						
 					</div>
 				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-			
-			
+						
 			<!--  검색 결과 -->
 			<c:forEach var="lec" items="${lecList}">
 				<div class="card-border card" style="width: 30rem;">
@@ -195,11 +174,11 @@
 			</c:forEach>
 		</div>
 
-
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-			crossorigin="anonymous"></script>
+			crossorigin="anonymous">
+		</script>
 
 	</div>
 </body>

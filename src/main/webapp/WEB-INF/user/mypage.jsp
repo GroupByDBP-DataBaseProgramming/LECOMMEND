@@ -34,6 +34,7 @@
 	<%
 	HttpSession loginSession = request.getSession();
 	System.out.println(loginSession.getAttribute("userId"));
+	
 	%>
 
 	<!--로그인이 안 됐으면-->
@@ -42,7 +43,8 @@
 	</c:if>
 	
 	<!--  로그인이 됐으면-->
-	<c:if test="${userId ne null}">
+	<c:if test="${userId ne null}">	
+	
 		<jsp:include page="../header.jsp"></jsp:include>
 		<jsp:include page="../nav.jsp"></jsp:include>
 	

@@ -38,20 +38,15 @@ public class RequestMapping {
 
         // 사용자 정보 수정 폼 요청과 수정 요청 처리 병합      
         mappings.put("/user/update", new UpdateUserController());
-        
         mappings.put("/user/delete", new DeleteUserController());
+        
         
 		mappings.put("/lecture/filter/form", new ForwardController("/lecture/filterForm.jsp"));
 		mappings.put("/lecture/filter", new FilterLectureController());
         mappings.put("/lecture/searchResult", new SearchResultLectureController());
         
-        // 커뮤니티 관련 request URI 추가
-        //mappings.put("/community/list", new ListCommunityController());
-        //mappings.put("/community/view", new ViewCommunityController());
-        //mappings.put("/community/create/form", new ForwardController("/community/creationForm.jsp"));
-        //mappings.put("/community/create", new CreateCommunityController());
-        //mappings.put("/community/update", new UpdateCommunityController());
-        
+     
+       
         logger.info("Initialized Request Mapping!");
     }
 
