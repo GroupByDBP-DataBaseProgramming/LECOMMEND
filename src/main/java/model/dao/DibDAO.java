@@ -101,8 +101,8 @@ public class DibDAO {
 
 	// 한 학생의 찜 목록(마이페이지에서 확인)
 	public List<LectureDTO> listOfDibs(String stuId) throws SQLException {
-		String sql = "SELECT lecID, title, professor, week, lecTime, cno " + "FROM Lecture, Dibs "
-				+ "WHERE Dibs.stuID = ? AND Dibs.lecID = Lecture.lecID";
+		String sql = "SELECT * " + "FROM lecture, dib "
+				+ "WHERE dib.stuID = ? AND dib.lecID = lecture.lecID";
 
 		Object[] param = new Object[] { stuId };
 		jdbcUtil.setSqlAndParameters(sql, param);
@@ -112,9 +112,10 @@ public class DibDAO {
 			ResultSet rs = jdbcUtil.executeQuery();
 			while (rs.next()) {
 				LectureDTO lec = new LectureDTO(rs.getString("lecID"), rs.getString("title"), rs.getString("professor"),
-						rs.getString("loc"), rs.getString("week"), rs.getString("lectime"), rs.getInt("cNo"));
+						rs.getString("loc"), rs.getString("week"), rs.getString("lectime"), rs.getInt("cno"));
 				dibList.add(lec);
 			}
+			System.out.print("diblist" + dibList);
 			return dibList;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();

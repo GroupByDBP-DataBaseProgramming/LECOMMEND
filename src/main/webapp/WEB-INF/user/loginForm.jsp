@@ -56,7 +56,6 @@
 				</div>
 				<button class="w-100 btn btn-lg btn-primary" onClick="login()">Log
 					in</button>
-				
 				<div class="center_loc">
 					<label>LEcommend 처음이신가요?</label> <br> 
 					<a href="<c:url value='/user/join' />" class="signup">회원가입</a>

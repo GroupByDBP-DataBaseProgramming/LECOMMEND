@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import model.service.DibManager;
@@ -14,16 +15,25 @@ public class ListDibController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		//찜 목록은 마이페이지에서 볼 수 있는데, 마이페이지는 로그인을 먼저해야 접속 가능하므로 굳이 hasLogin을 써야하나?		
-		DibManager manager = DibManager.getInstance();
-		
-		String stuID = request.getParameter("stuID");
-		List<LectureDTO> dibList = manager.listOfDibs(stuID);
+		try {
+			DibManager manager = DibManager.getInstance();
+			
+			HttpSession session = request.getSession();
+			String userId = (String)session.getAttribute("userId");
+			System.out.print(userId + "testttt");
+	
+			//String stuID = request.getParameter("userId");
+			List<LectureDTO> dibList = manager.listOfDibs("test1");
+			System.out.print(dibList);
+	
+			// dibList를 request에 저장하여 전달
+			request.setAttribute("dibList", dibList);
+			request.setAttribute("userID", userId);			
+		} catch (Exception e) {
+			request.setAttribute("searchFailed", true);
+		}
 
-		// dibList를 request에 저장하여 전달
-		request.setAttribute("dibList", dibList);				
-
-		return "/lecture/dibList.jsp";      
+		return "/user/dibList.jsp";      
 		
 	}
 

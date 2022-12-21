@@ -71,7 +71,7 @@
 					<li><a href="<c:url value='/lecture/filter/form' />">FILTER</a></li>
 					<li><a href="<c:url value='/lecture/searchResult' />">SEARCH RESULT</a></li>
 				</ul></li>
-			<li><a href="<c:url value='/user/mypage' />">MY PAGE</a></li>
+			<li><a href="<c:url value='/user/mypage'/>">MY PAGE</a></li>
 		</ul>
 	</div>
 

@@ -6,8 +6,6 @@
 
 	<jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="nav.jsp"></jsp:include>
-	<jsp:include page="home_message.jsp"></jsp:include>
-	
-	
+	<jsp:include page="home_message.jsp"></jsp:include>	
 </body>
 </html>

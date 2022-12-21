@@ -35,7 +35,8 @@
 	<div class="structure">
 
 		<div class="info"><jsp:include page="userInfo.jsp"></jsp:include></div>
-		<div class="dList"><jsp:include page="dibList.jsp"></jsp:include></div>
+		<!-- controller를 이용하고, controller에서 dibList.jsp를 리턴한다. -->
+		<div class="dList"><jsp:include page="<c:url value='/user/mypage/dibList'/>"></jsp:include></div>
 	</div>
 
 

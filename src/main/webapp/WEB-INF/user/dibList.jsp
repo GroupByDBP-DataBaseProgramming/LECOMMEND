@@ -119,14 +119,12 @@
 				<h6 class="text-danger">
 					⛔ 찜한 강의가 없습니다.💧 ⛔
 				</h6>
-			</c:if>
-			
-			
-			
-			<div class="card-border card" style="width: 30rem;">
+			</c:if>			
+
+				<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">
 						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
+							<button class="btn_delete" type="button" onclick="location.href='/lecommend/user/mypage'">X</button>
 						</span><br> 박
 						<p></p>
 						화, 수
@@ -134,66 +132,68 @@
 					</div>
 				</div>
 				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
+				<div><span>${userID}</span></div>
 				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
 				
+			<c:forEach var="dib" items="${dibList}">
 				<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">
-						<span class="card-title"> 데베프
+						<span class="card-title"> ${dib.title}
 							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
+						</span><br> ${dib.professor}
 						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-			
-			
-			<!--  검색 결과 -->
-			<c:forEach var="lec" items="${lecList}">
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> ${lec.title}
-							<button class="btn_delete" type="button">X</button>
-						</span><br> ${lec.professor}
-						<p></p>
-						${lec.lecID} <br>${lec.week}[${lec.lecTime}]
-						${lec.loc}
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
+						${dib.lecID} <br>${dib.week} ${dib.lecTime}
+						${dib.loc} ${dib.cNo}
+						<button class="btn_wish" type="button">♡ 찜하기</button>
 					</div>
 				</div>
 			</c:forEach>
-		</div>
+			<!--  
+			
+				<div class="card-border card" style="width: 30rem;">
+					<div class="card-body">
+						<span class="card-title"> 데베프
+							<button class="btn_delete" type="button" onclick="onClick()">X</button>
+						</span><br> 박
+						<p></p>
+						화, 수
+						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
+					</div>
+				</div>
+				
+				<div class="card-border card" style="width: 30rem;">
+					<div class="card-body">
+						<span class="card-title"> 데베프
+							<button class="btn_delete" type="button">X</button>
+						</span><br> 박
+						<p></p>
+						화, 수
+						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
+					</div>
+				</div>
+				
+				<div class="card-border card" style="width: 30rem;">
+					<div class="card-body">
+						<span class="card-title"> 데베프
+							<button class="btn_delete" type="button">X</button>
+						</span><br> 박
+						<p></p>
+						화, 수
+						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
+					</div>
+				</div>
+				
+				<div class="card-border card" style="width: 30rem;">
+					<div class="card-body">
+						<span class="card-title"> 데베프
+							<button class="btn_delete" type="button">X</button>
+						</span><br> 박
+						<p></p>
+						화, 수
+						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
+					</div>
+				</div>
+				-->
 
 
 		<script
