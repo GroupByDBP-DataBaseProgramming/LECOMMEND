@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.dao.JDBCUtil;
 import model.dto.LectureDTO;
 import model.dto.StudentDTO;
 
@@ -103,32 +102,9 @@ public class StudentDAO {
 	 */
 	public StudentDTO findUser(String stuId) throws SQLException {
 		
-		/*
-        String sql = "SELECT STUID, STUPW, MAJOR "
-        			+ "FROM STUDENT "
-        			+ "WHERE STUID=? ";  
-        
-        System.out.println("<findUser> stuID: " + stuId);
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {stuId});	
-		*/
+		
 
 		try {
-			/*
-			System.out.println("학생 찾기 메소드 들어왔다!! ");
-			
-			ResultSet rs = jdbcUtil.executeQuery();		
-			System.out.println("rs.next() : " + rs.next());
-			System.out.println("rs : " + rs);
-			
-			if (rs.next()) {					
-				StudentDTO student = new StudentDTO(		
-					stuId,
-					rs.getString("stupw"),
-					rs.getString("major"));
-				
-				return student;
-			}
-			*/
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, user, passwd);
 			
@@ -151,7 +127,14 @@ public class StudentDAO {
 			System.out.println("학생 찾기 메소드 에러 !!");
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		
+			if (rs != null) {
+				try { rs.close(); } catch (SQLException ex) { ex.printStackTrace(); }
+			}
+			if (pStmt != null) {
+				try { pStmt.close(); } catch (SQLException ex) { ex.printStackTrace(); } }
+			if (conn != null) {
+				try { conn.close(); } catch (SQLException ex) { ex.printStackTrace(); }
+			}		
 		}
 		return null;
 	}
