@@ -482,11 +482,14 @@ public class LectureDAO {
 		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? and o.loc LIKE '%" + loc + "%') ";
+				+ "where (o.interest = ? and o.loc LIKE '%" + loc + "%') or "
+				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.lecType = ? or o.examType = ? or "
+				+ "o.lecTime LIKE '%" + lecTime + "%' OR "
+				+ "o.occupancy <= ?";
 		
 		System.out.println(loc);
 		
-		Object[] param = new Object[] {interest};
+		Object[] param = new Object[] {interest, week, credit, onOff, lecType, examType, occupancy};
 		jdbcUtil.setSqlAndParameters(sql, param);
 		
 		try {				
@@ -527,9 +530,13 @@ public class LectureDAO {
 		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? and o.lecType = ?)";
+				+ "where (o.interest = ? and o.lecType = ?) or "
+				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.examType = ? or "
+				+ "o.lecTime LIKE '%" + lecTime + "%' or "
+				+ "o.loc LIKE '%" + loc + "%' or "
+				+ "o.occupancy <= ?";
 		
-		Object[] param = new Object[] { interest, lecType};				
+		Object[] param = new Object[] { interest, lecType, week, credit, onOff, examType, occupancy};				
 		
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
@@ -566,11 +573,14 @@ public class LectureDAO {
 		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? and o.lecTime LIKE '%" + lecTime + "%')";
+				+ "where (o.interest = ? and o.lecTime LIKE '%" + lecTime + "%') or "
+				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.lecType = ? or o.examType = ? or "
+				+ "o.loc LIKE '%" + loc + "%' or "
+				+ "o.occupancy <= ?";
 		
 		System.out.println(lecTime);
 		
-		Object[] param = new Object[] { interest };				
+		Object[] param = new Object[] { interest, week, credit, onOff, lecType, examType, occupancy };				
 		
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
