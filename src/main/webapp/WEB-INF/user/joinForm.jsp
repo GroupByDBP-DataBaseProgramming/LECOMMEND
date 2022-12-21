@@ -62,8 +62,8 @@
 
 					<div class="form-group mb-3">
 						<label for="userId">ID (학번)</label> <input type="text"
-							class="form-control" name="userId" id="userId" placeholder=""
-							value="" required>
+							class="form-control" name="userId" id="userId" required>
+						<font id="checkId" size="2"></font>
 
 					</div>
 
@@ -71,13 +71,13 @@
 					<div class="form-group mb-3">
 						<label for="password">비밀번호</label> <input type="password"
 							class="form-control" name="password" id="password" required>
-
+						<font id="checkPw" size="2"></font>
 					</div>
 
 					<div class="form-group mb-3">
 						<label for="password2">비밀번호 재확인</label> <input type="password"
 							class="form-control" name="password2" id="password2" required>
-
+						<font id="missMatchPw" size="2"></font>
 					</div>
 
 					<div class="form-group mb-3">
@@ -101,8 +101,9 @@
 					</div>
 					<br>
 					<div class="mb-2 form-group "></div>
-					<button class="btn-block w-100 btn btn-lg btn-primary"
-						onClick="userCreate()">가입하기</button>
+					<input type="button" value="제출하기"
+						class="btn-block w-100 btn btn-lg btn-primary"
+						onclick="userCreate()">
 				</form>
 			</div>
 		</div>
@@ -111,27 +112,42 @@
 
 	<script>
 		function userCreate() {
-			if (form.userId.value == "") {
-				alert("사용자 ID를 입력하십시오.");
-				form.userId.focus();
+			var idExp = /^2\d{7}$/;
+			if (idExp.test(joinform.userId.value) == false) {
+				document.getElementById("checkId").innerHTML = "ID(학번) 형식이 올바르지 않습니다.";
+				document.getElementById("checkId").style.color = "red";
+				joinform.userId.focus();
+				return false;
+			} else {
+				document.getElementById("checkId").innerHTML = "";
+			}
+
+			var pwExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
+			//최소 8자 및 최대 10자 & 하나 이상의 대문자, 하나의 소문자, 하나의 숫자 및 하나의 특수 문자
+			if (pwExp.test(joinform.password.value) == false) {
+				document.getElementById("checkPw").innerHTML = "비밀번호 형식이 올바르지 않습니다.";
+				document.getElementById("checkPw").style.color = "red";
+				joinform.password.focus();
+				return false;
+			} else {
+				document.getElementById("checkPw").innerHTML = "";
+			}
+
+			if (joinform.password.value != joinform.password2.value) {
+				document.getElementById("missMatchPw").innerHTML = "비밀번호가 일치하지 않습니다.";
+				document.getElementById("missMatchPw").style.color = "red";
+				joinform.password2.focus();
+				return false;
+			} else {
+				document.getElementById("missMatchPw").innerHTML = "";
+			}
+
+			if (joinform.major.value == "") {
+				joinform.major.focus();
 				return false;
 			}
-			if (form.password.value == "") {
-				alert("비밀번호를 입력하십시오.");
-				form.password.focus();
-				return false;
-			}
-			if (form.password.value != form.password2.value) {
-				alert("비밀번호가 일치하지 않습니다.");
-				form.name.focus();
-				return false;
-			}
-			if (form.major.value == "") {
-				alert("전공을 선택하십시오.");
-				form.name.focus();
-				return false;
-			}
-			form.submit();
+
+			joinform.submit();
 		}
 	</script>
 

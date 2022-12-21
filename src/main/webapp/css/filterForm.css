@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .keywordBtn {
 	font-weight: bold;
 	color: #6f263d;
@@ -51,6 +52,7 @@ input[type=radio] {
 	margin-left: 25px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border-bottom: 3px solid #f1f1f1;
 }
 
 .keywordSubmitBtn {
@@ -78,7 +80,11 @@ input[type=radio] {
 }
 
 .keywordTable {
-	margin: auto;
-	margin-top: 60px;
+	margin-top: 40px;
 	margin-bottom: 20px;
 }
+
+.tableCss {
+	margin: auto;
+}
+

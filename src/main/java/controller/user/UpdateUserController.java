@@ -22,12 +22,11 @@ public class UpdateUserController implements Controller {
 		UserManager manager = UserManager.getInstance();
 		StudentDTO user = manager.findUser(updateId); // 수정하려는 사용자 정보 검색
 		request.setAttribute("user", user);
+		request.setAttribute("major", user.getMajor());
     	
     	if (request.getMethod().equals("GET")) {	
     		// GET request: 회원정보 수정 form 요청	
     		// 원래는 UpdateUserFormController가 처리하던 작업을 여기서 수행
-    		
-    		request.setAttribute("major", user.getMajor());
     		log.debug("UpdateForm Request : {}", updateId);
     		
     		

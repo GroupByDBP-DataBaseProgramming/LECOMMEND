@@ -55,34 +55,6 @@
 	<div class="recommendbox">
 		<p class="list-cnt">💞 추천하는 강의 💞</p>
 
-		<div class="card-border card recommend-card" style="width: 15rem;">
-			<div class="card-body">
-				<h5 class="card-title">알고리즘</h5>
-				한혁
-				<p></p>
-				화수 <br>
-			</div>
-		</div>
-		
-		<div class="card-border card recommend-card" style="width: 15rem;">
-			<div class="card-body">
-				<h5 class="card-title">알고리즘</h5>
-				한혁
-				<p></p>
-				화수 <br>
-			</div>
-		</div>
-		
-		<div class="card-border card recommend-card" style="width: 15rem;">
-			<div class="card-body">
-				<h5 class="card-title">알고리즘</h5>
-				한혁
-				<p></p>
-				화수 <br>
-			</div>
-		</div>
-
-
 		<c:forEach var="recLec" items="${recLecList}">
 			<div class="card-border card recommend-card" style="width: 15rem;">
 				<div class="card-body">

@@ -108,31 +108,6 @@
 			</c:if>
 
 
-
-			<div class="card-border card" style="width: 450px;">
-				<div class="card-body">
-					<span class="card-title"> 데베프
-						<button class="btn_delete" type="button">X</button>
-					</span><br> 박
-					<p></p>
-					화, 수
-					<button class="btn_wish" type="button">♡ 추천 받기</button>
-				</div>
-			</div>
-
-			<div class="card-border card" style="width: 450px;">
-				<div class="card-body">
-					<span class="card-title"> 데베프
-						<button class="btn_delete" type="button">X</button>
-					</span><br> 박
-					<p></p>
-					화, 수
-					<button class="btn_wish" type="button">♡ 추천 받기</button>
-				</div>
-			</div>
-
-
-
 			<!--  검색 결과 -->
 			<c:forEach var="lec" items="${lecList}">
 				<div class="card-border card" style="width: 450px;">
