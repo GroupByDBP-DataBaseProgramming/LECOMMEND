@@ -31,8 +31,14 @@ public class RequestMapping {
         //mappings.put("/user/mypage/dibList", new dibListController());
         //mappings.put("/user/mypage/recList", new recListController());
         
+
+        //mappings.put("/user/mypage", new myPageController());
+        mappings.put("/user/mypage", new LectureController());
+        mappings.put("/user/mypage/edit", new ForwardController("/user/updateForm.jsp"));
+
         //mappings.put("/user/mypage/edit/form", new ForwardController("/user/updateForm.jsp"));
         //mappings.put("/user/mypage/edit", new UpdateUserController());
+
         
         //mappings.put("/user/mypage/update", new UpdateUserController());
         //mappings.put("/user/list", new ListUserController());
@@ -49,6 +55,7 @@ public class RequestMapping {
 		mappings.put("/lecture/filter/form", new ForwardController("/lecture/filterForm.jsp"));
 		mappings.put("/lecture/filter", new FilterLectureController());
         mappings.put("/lecture/searchResult", new SearchResultLectureController());
+        mappings.put("/lecture/delete",new DeleteLectureController());
         
         // 커뮤니티 관련 request URI 추가
         //mappings.put("/community/list", new ListCommunityController());
