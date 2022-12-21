@@ -91,16 +91,16 @@ public class LectureManager {
 		return lecDAO.findLectureByKeyword(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
 	}
 	
-	public List<LectureDTO> findLectureByKeywordWithPriority01(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
-		return lecDAO.findLectureByKeywordWithPriority01(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
+	public List<LectureDTO> findLectureByKeywordWithLoc(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		return lecDAO.findLectureByKeywordWithLoc(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
 	}
 	
-	public List<LectureDTO> findLectureByKeywordWithPriority02(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
-		return lecDAO.findLectureByKeywordWithPriority02(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
+	public List<LectureDTO> findLectureByKeywordWithLecType(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		return lecDAO.findLectureByKeywordWithLecType(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
 	}
 	
-	public List<LectureDTO> findLectureByKeywordWithPriority03(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
-		return lecDAO.findLectureByKeywordWithPriority03(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
+	public List<LectureDTO> findLectureByKeywordWithLecTime(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		return lecDAO.findLectureByKeywordWithLecTime(loc, week, lecTime, occupancy, credit, onOff, lecType, interest, examType);
 	}
 	
 	public List<LectureDTO> recommendLectures(String stuid, String lecid) throws Exception {

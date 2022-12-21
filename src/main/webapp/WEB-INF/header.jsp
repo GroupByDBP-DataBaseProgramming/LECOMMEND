@@ -88,6 +88,7 @@
 			HttpSession loginSession = request.getSession();
 			System.out.println(loginSession.getAttribute("userId"));
 			%>
+			
 		</div>
 		<hr>
 	</div>

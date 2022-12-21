@@ -7,22 +7,22 @@
 <%
 
 
-String[] locList = { "대학원", "동인관", "인문관", "약학관", "숭인관", "예지관", "백주년" };
+String[] locList = { "대학원", "동인관", "인문관", "약학관", "숭인관", "예지관", "백주년", "열린"};
 request.setAttribute("locList", locList);
 
 String[] lecTypeList = { "토론", "실기", "이론", "독서", "실습", "발표" };
 request.setAttribute("lecTypeList", lecTypeList);
 
-String[] interestList = { "경영", "경제", "교육", "기술", "데이터", "동양", "코딩" };
+String[] interestList = { "경영", "경제", "교육", "기술", "과학", "데이터", "동양", "마케팅", "미디어", "문학", "법", "사회", "스포츠", "심리", "언어", "여성", "영화", "음악", "종교", "창작", "철학", "취업", "코딩", "환경"};
 request.setAttribute("interestList", interestList);
 
-String[] lecTimeList = { "1교시", "2교시", "3교시", "4교시", "5교시", "6교시" };
+String[] lecTimeList = { "1교시", "2교시", "3교시", "4교시", "5교시", "6교시", "열린" };
 request.setAttribute("lecTimeList", lecTimeList);
 
 String[] examTypeList = { "대면", "비대면", "과제대체" };
 request.setAttribute("examTypeList", examTypeList);
 
-String[] weekList = { "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" };
+String[] weekList = { "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "열린" };
 request.setAttribute("weekList", weekList);
 
 String[] onOffList = { "ON", "OFF", "ON+OFF", "ALL" };
@@ -126,8 +126,8 @@ request.setAttribute("onOffList", onOffList);
 				<td>
 					<div class="btn-group-toggle keywords" data-toggle="buttons">
 						<c:forEach var="interest" items="${interestList}">
-							<label class="btn btn-primary keywordBtn"> <input
-								type="radio" name="interest" value="${ interest }" required>
+							<label class="btn btn-primary keywordBtn" style="margin: 10px 1px"> 
+								<input type="radio" name="interest" value="${ interest }" required>
 								${interest}
 							</label>
 						</c:forEach>

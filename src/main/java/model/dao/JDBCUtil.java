@@ -17,6 +17,7 @@ public class JDBCUtil {
 
 	// 기본 생성자
 	public JDBCUtil() {
+		System.out.println("JDBC생성 ");
 	}
 
 	/*
@@ -80,6 +81,8 @@ public class JDBCUtil {
 
 	// JDBCUtil의 쿼리와 매개변수를 이용해 executeQuery를 수행하는 메소드
 	public ResultSet executeQuery() {
+		System.out.println("executeQuery 실행 ");
+		
 		try {
 			pstmt = getPreparedStatement();
 			for (int i = 0; i < getParameterSize(); i++) {

@@ -21,6 +21,7 @@ public class DeleteLectureController implements Controller {
 		
 		try { 
 		if(manager.remove(lecId) > 0) {
+			
 			List<LectureDTO> lecList = manager.findLectureList();
 			System.out.println(lecList);
 			//request.setAttribute("lecture", lecList);
