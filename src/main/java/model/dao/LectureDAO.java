@@ -482,14 +482,16 @@ public class LectureDAO {
 		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? and o.loc LIKE '%" + loc + "%') or "
+				+ "where o.interest = ? and o.loc LIKE '%" + loc + "%'";
+		/*
 				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.lecType = ? or o.examType = ? or "
 				+ "o.lecTime LIKE '%" + lecTime + "%' OR "
 				+ "o.occupancy <= ?";
+				*/
 		
-		System.out.println(loc);
+		System.out.println(loc + " " + interest);
 		
-		Object[] param = new Object[] {interest, week, credit, onOff, lecType, examType, occupancy};
+		Object[] param = new Object[] {interest};
 		jdbcUtil.setSqlAndParameters(sql, param);
 		
 		try {				
@@ -530,13 +532,15 @@ public class LectureDAO {
 		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? and o.lecType = ?) or "
+				+ "where (o.interest = ? and o.lecType = ?)";
+		/*
 				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.examType = ? or "
 				+ "o.lecTime LIKE '%" + lecTime + "%' or "
 				+ "o.loc LIKE '%" + loc + "%' or "
 				+ "o.occupancy <= ?";
+				*/
 		
-		Object[] param = new Object[] { interest, lecType, week, credit, onOff, examType, occupancy};				
+		Object[] param = new Object[] { interest, lecType};				
 		
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
@@ -573,14 +577,16 @@ public class LectureDAO {
 		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? and o.lecTime LIKE '%" + lecTime + "%') or "
+				+ "where (o.interest = ? and o.lecTime LIKE '%" + lecTime + "%')";
+		/*
 				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.lecType = ? or o.examType = ? or "
 				+ "o.loc LIKE '%" + loc + "%' or "
 				+ "o.occupancy <= ?";
+				*/
 		
 		System.out.println(lecTime);
 		
-		Object[] param = new Object[] { interest, week, credit, onOff, lecType, examType, occupancy };				
+		Object[] param = new Object[] { interest };				
 		
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
