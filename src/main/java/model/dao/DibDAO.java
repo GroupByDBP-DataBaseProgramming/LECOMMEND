@@ -15,11 +15,13 @@ public class DibDAO {
 
 	// 찜생성
 	public int create(String stuId, String lecId) throws SQLException {
-		String sql = "INSERT INTO Dib " + "VALUES (DIB_SEQ.NEXT_VAL, ?, ?)";
+		String sql = "INSERT INTO Dib " + "VALUES (DIB_SEQ.nextval, ?, ?)";
 
 		/*
 		 * CREATE SEQUENCE DIB_SEQ START WITH 1 INCREMENT BY 1;
 		 */ // id 자동생성 sequence
+		
+		//삭제시 아이디 1부터 차례로 있는거 미구현
 
 		Object[] param = new Object[] { stuId, lecId };
 		jdbcUtil.setSqlAndParameters(sql, param); // JDBCUtil 에 insert문과 매개 변수 설정
@@ -57,6 +59,26 @@ public class DibDAO {
 		return 0;
 	}
 
+	public int duplicationCheck(String stuId, String lecId) throws SQLException {
+		String sql = "SELECT * FROM DIB WHERE stuID = ? AND lecID = ?";
+		
+		Object[] param = new Object[] { stuId, lecId };
+		jdbcUtil.setSqlAndParameters(sql, param);
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			if(rs.next() == true)
+				return 0; //이미 있다면 0 반환
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		return 1;
+	}
+	
 	// 한 강의의 찜 총합(찜할때 보이기)
 	public int numOfLecDibs(String lecId) throws SQLException {
 		String sql = "SELECT COUNT(dibID) AS numOfLecDibs " + "FROM DIB " + "WHERE lecID = ?";

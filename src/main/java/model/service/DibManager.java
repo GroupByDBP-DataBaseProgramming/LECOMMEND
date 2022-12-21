@@ -32,6 +32,10 @@ public class DibManager {
 		return dibDAO.delete(stuID, lecID);
 	}
 	
+	public int duplicationCheck(String stuId, String lecId) throws SQLException {
+		return dibDAO.duplicationCheck(stuId, lecId);
+	}
+	
 	public int numOfLecDibs(String lecId) throws SQLException {
 		//lec 있는지 없는지 여부
 		return dibDAO.numOfLecDibs(lecId);

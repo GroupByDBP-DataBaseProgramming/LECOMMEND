@@ -79,12 +79,11 @@
 	font-weight: bold;
 }
 
-.btn_wish:hover {
+button.btn_wish_active {
 	font-weight: bold;
 	border: 1px solid #6f263d;
 	background-color: #fff;
 	color: #6f263d;
-	transition-duration: 1s;
 }
 
 .card-border {
@@ -139,7 +138,7 @@
 
 	<jsp:include page="../header.jsp"></jsp:include>
 	<jsp:include page="../nav.jsp"></jsp:include>
-${test}
+
 	<div class="totalresult">
 	
 		<div class="resultbox">
@@ -162,12 +161,18 @@ ${test}
 				<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">
 						<span class="card-title"> ${lec.title}
-							<button class="btn_delete" type="button">X</button>
 						</span><br> ${lec.professor}
 						<p></p>
 						${lec.lecID} <br>${lec.week}[${lec.lecTime}]
 						${lec.loc}
-						<button class="btn_wish" type="button">♡ 찜하기</button>
+						<form action="<c:url value='/lecture/searchResult/createDib'/>">
+							<button class="btn_wish" id="btn_before" 
+							name="lecID" type="submit" value="${lec.lecID}" onClick="changeBtn()" >♡ 찜하기</button>
+						</form>
+						<!--  <form action="<c:url value='/lecture/searchResult/deleteDib'/>">
+							<button class="btn_wish" id="btn_after_wish" 
+							name="lecID" type="submit" value="${lec.lecID}" onClick="changeBtn()" >♡ 찜해제</button>
+						</form>-->
 					</div>
 				</div>
 			</c:forEach>
@@ -196,5 +201,19 @@ ${test}
 
 	</div>
 </body>
+<script>
+	$("button").click(function() {
+	    toggleClass(".btn_wish_active");
+	});
+	
+	function changeBtn()  {
+		  const btn1 = document.getElementById('btn_before');
+		  
+		  if(btn1.style.display !== 'none') {
+			    btn1.style.display = 'none';
+			}
+
+		}
+</script>
 </html>
 

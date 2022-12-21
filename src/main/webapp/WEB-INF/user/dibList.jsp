@@ -18,28 +18,22 @@
 <title>Search Result</title>
 <style>
 .totalresult {
-	margin-left: 40px;
 	padding-top: 20px;
 }
-
 .resultbox {
-	margin-left: 50px;
+	margin: auto;
 	padding: 10px;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
 	border: solid 1px #efefef;
 	border-radius: 0.7em;
 	background-color: #efefef;
-	width: 34.375rem;
-	display: inline-block;
+	width: 500px;
 }
-
-
 .list {
 	font-weight: bold;
 	font-size: 12px;
 	color: #6f263d;
 }
-
 .btn_wish {
 	float: right;
 	color: white;
@@ -50,15 +44,13 @@
 	padding-top: 0px;
 	font-weight: bold;
 }
-
-.btn_wish:hover {
+.btn_wish:active {
 	font-weight: bold;
 	border: 1px solid #6f263d;
 	background-color: #fff;
 	color: #6f263d;
 	transition-duration: 1s;
 }
-
 .card-border {
 	color: #6f263d;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
@@ -69,7 +61,6 @@
 	margin-bottom: 20px;
 	padding: 3px;
 }
-
 .btn_delete {
 	font-size: 14px;
 	font-weight: bold;
@@ -78,33 +69,21 @@
 	float: right;
 	background-color: #fff;
 }
-
 .card-title {
 	font-size: 16px;
 	font-weight: bold;
 }
-
-.recommend-card {
-	text-align: center;
-	margin-bottom: 10px;
-	
-}
-
 .list-cnt {
 	color: #6f263d;
 	font-size: 18px;
 	margin-bottom: 10px;
 	font-weight: bold;
 	text-align: center;
-
 }
-
-.text-danger{
+.text-danger {
 	text-align: center;
 	font-weight: bold;
 }
-
-
 </style>
 </head>
 <body>
@@ -125,11 +104,12 @@
 				<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">
 						<span class="card-title"> ${dib.title}
-							<button class="btn_delete" type="button" 
-							onClick="location.href='/user/mypage/deleteDib'">X</button>
-						</span><br> ${dib.professor} <p/>
-						${dib.lecID} ${dib.cNo} <p/>
-						${dib.week} ${dib.lectime} ${dib.loc}
+						<form action="<c:url value='/user/mypage/deleteDib'/>">
+							<button class="btn_delete" name="lecID" type="submit" value="${dib.lecID}">X</button>
+						</form>
+						</span><br> ${dib.professor}
+						<p></p> 
+						${dib.lecID} ${dib.cNo}분반 <br>${dib.week}[${dib.lecTime}] ${dib.loc}
 						<button class="btn_wish" type="button">♡ 찜하기</button>
 					</div>
 				</div>
