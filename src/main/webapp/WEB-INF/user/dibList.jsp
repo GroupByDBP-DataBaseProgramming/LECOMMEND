@@ -18,21 +18,18 @@
 <title>Search Result</title>
 <style>
 .totalresult {
-	margin-left: 40px;
 	padding-top: 20px;
 }
 
 .resultbox {
-	margin-left: 50px;
+	margin: auto;
 	padding: 10px;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
 	border: solid 1px #efefef;
 	border-radius: 0.7em;
 	background-color: #efefef;
-	width: 34.375rem;
-	display: inline-block;
+	width: 500px;
 }
-
 
 .list {
 	font-weight: bold;
@@ -84,111 +81,67 @@
 	font-weight: bold;
 }
 
-.recommend-card {
-	text-align: center;
-	margin-bottom: 10px;
-	
-}
-
 .list-cnt {
 	color: #6f263d;
 	font-size: 18px;
 	margin-bottom: 10px;
 	font-weight: bold;
 	text-align: center;
-
 }
 
-.text-danger{
+.text-danger {
 	text-align: center;
 	font-weight: bold;
 }
-
-
 </style>
 </head>
 <body>
 
 	<div class="totalresult">
-	
+
 		<div class="resultbox">
 			<p class="list-cnt">💕 찜 리스트 💕</p>
-		
+
 			<!-- <div class="list-cnt">총 10건</div> -->
 			<c:if test="${searchFailed}">
-				<h6 class="text-danger">
-					⛔ 찜한 강의가 없습니다.💧 ⛔
-				</h6>
+				<h6 class="text-danger">⛔ 찜한 강의가 없습니다.💧 ⛔</h6>
 			</c:if>
-			
-			
-			
-			<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
+
+
+
+			<div class="card-border card" style="width: 450px;">
+				<div class="card-body">
+					<span class="card-title"> 데베프
+						<button class="btn_delete" type="button">X</button>
+					</span><br> 박
+					<p></p>
+					화, 수
+					<button class="btn_wish" type="button">♡ 추천 받기</button>
 				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
+			</div>
+
+			<div class="card-border card" style="width: 450px;">
+				<div class="card-body">
+					<span class="card-title"> 데베프
+						<button class="btn_delete" type="button">X</button>
+					</span><br> 박
+					<p></p>
+					화, 수
+					<button class="btn_wish" type="button">♡ 추천 받기</button>
 				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-			
-			
+			</div>
+
+
+
 			<!--  검색 결과 -->
 			<c:forEach var="lec" items="${lecList}">
-				<div class="card-border card" style="width: 30rem;">
+				<div class="card-border card" style="width: 450px;">
 					<div class="card-body">
 						<span class="card-title"> ${lec.title}
 							<button class="btn_delete" type="button">X</button>
 						</span><br> ${lec.professor}
 						<p></p>
-						${lec.lecID} <br>${lec.week}[${lec.lecTime}]
-						${lec.loc}
+						${lec.lecID} <br>${lec.week}[${lec.lecTime}] ${lec.loc}
 						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
 					</div>
 				</div>
