@@ -1,5 +1,8 @@
 package model.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +12,14 @@ import model.dto.LectureDTO;
 
 public class LectureDAO {
 	private JDBCUtil jdbcUtil = null;
-
+	
+	Connection conn = null;
+	PreparedStatement pStmt = null;
+	ResultSet rs = null;
+	String url = "jdbc:oracle:thin:@202.20.119.117:1521:orcl";
+	String user = "dbpr0102";
+	String passwd = "0980";
+			
 	public LectureDAO() {
 		jdbcUtil = new JDBCUtil();
 	}
@@ -467,25 +477,25 @@ public class LectureDAO {
 	/**
 	 * [R] 키워드로 검색된 Lecture를 List에 저장 및 반환 (관심사 + 강의실) // 수강했던 강의 포함해서 검색
 	 */
-	public List<LectureDTO> findLectureByKeywordWithPriority01(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+	public List<LectureDTO> findLectureByKeywordWithLoc(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		System.out.println("관심사 + 강의실로 찾기");
+		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? AND "
-				+ "o.loc LIKE '" + loc + "%') AND "
-				+ "(o.week = ? OR "
+				+ "where (o.interest = ? and o.loc LIKE '%" + loc + "%') or "
+				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.lecType = ? or o.examType = ? or "
 				+ "o.lecTime LIKE '%" + lecTime + "%' OR "
-				+ "o.occupancy between ? and ? OR "
-				+ "o.credit = ? OR "
-				+ "o.onOff = ? OR "
-				+ "o.lecType = ? OR "
-				+ "o.examType = ?)";
+				+ "o.occupancy <= ?";
 		
-		Object[] param = new Object[] { interest, week, occupancy-5, occupancy+5, credit, onOff, lecType, examType};				
+		System.out.println(loc);
 		
+		Object[] param = new Object[] {interest, week, credit, onOff, lecType, examType, occupancy};
 		jdbcUtil.setSqlAndParameters(sql, param);
+		
 		try {				
 			ResultSet rs = jdbcUtil.executeQuery(); 
 			List<LectureDTO> lectureList = new ArrayList<LectureDTO>(); 
+			
 			while (rs.next()) {
 				LectureDTO lecture = new LectureDTO(
 						rs.getString("lecid"), 
@@ -495,8 +505,12 @@ public class LectureDAO {
 						rs.getString("week"),
 						rs.getString("lectime"),
 						rs.getInt("cno"));
+				
 				lectureList.add(lecture); 
 			}
+			
+			System.out.println("lectureList : " + lectureList);
+			
 			return lectureList;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
@@ -504,28 +518,25 @@ public class LectureDAO {
 		}
 		finally {
 			jdbcUtil.commit();
-			jdbcUtil.close();	
-		}		
-		return null;
+			jdbcUtil.close();	// resource 반환
+		} return null;	
 	}
 
 	/**
 	 * [R] 키워드로 검색된 Lecture를 List에 저장 및 반환 (관심사 + 강의 형식) // 수강했던 강의 포함해서 검색
 	 */
-	public List<LectureDTO> findLectureByKeywordWithPriority02(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+	public List<LectureDTO> findLectureByKeywordWithLecType(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		System.out.println("관심사 + 강의형식으로 찾기 ");
+		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? AND "
-				+ "o.lecType = ?) AND "
-				+ "(o.loc LIKE '" + loc + "%' OR "
-				+ "o.week = ? OR "
-				+ "o.lecTime LIKE '%" + lecTime + "%' OR "
-				+ "o.occupancy between ? and ? OR "
-				+ "o.credit = ? OR "
-				+ "o.onOff = ? OR "
-				+ "o.examType = ?)";
+				+ "where (o.interest = ? and o.lecType = ?) or "
+				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.examType = ? or "
+				+ "o.lecTime LIKE '%" + lecTime + "%' or "
+				+ "o.loc LIKE '%" + loc + "%' or "
+				+ "o.occupancy <= ?";
 		
-		Object[] param = new Object[] { interest, lecType, week, occupancy-5, occupancy+5, credit, onOff, examType};				
+		Object[] param = new Object[] { interest, lecType, week, credit, onOff, examType, occupancy};				
 		
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
@@ -557,20 +568,19 @@ public class LectureDAO {
 	/**
 	 * [R] 키워드로 검색된 Lecture를 List에 저장 및 반환 (관심사 + 시간대) // 수강했던 강의 포함해서 검색
 	 */
-	public List<LectureDTO> findLectureByKeywordWithPriority03(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+	public List<LectureDTO> findLectureByKeywordWithLecTime(String loc, String week, String lecTime, int occupancy, int credit, String onOff, String lecType, String interest, String examType) throws SQLException {
+		System.out.println("관심사 + 시간대로 찾기 ");
+		
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
 				+ "from lecture l join optionalinfo o on l.lecid = o.lecid "
-				+ "where (o.interest = ? AND "
-				+ "o.lecTime LIKE '%" + lecTime + "%') AND "
-				+ "(o.loc LIKE '" + loc + "%' OR "
-				+ "o.week = ? OR "
-				+ "o.occupancy between ? and ? OR "
-				+ "o.credit = ? OR "
-				+ "o.onOff = ? OR "
-				+ "o.lecType = ? OR "
-				+ "o.examType = ?)";
+				+ "where (o.interest = ? and o.lecTime LIKE '%" + lecTime + "%') or "
+				+ "o.week = ? or o.credit = ? or o.onOff = ? or o.lecType = ? or o.examType = ? or "
+				+ "o.loc LIKE '%" + loc + "%' or "
+				+ "o.occupancy <= ?";
 		
-		Object[] param = new Object[] { interest, week, occupancy-5, occupancy+5, credit, onOff, lecType, examType};				
+		System.out.println(lecTime);
+		
+		Object[] param = new Object[] { interest, week, credit, onOff, lecType, examType, occupancy };				
 		
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
@@ -598,10 +608,6 @@ public class LectureDAO {
 		}		
 		return null;
 	}
-
-	
-	
-	
 
 }
 	
