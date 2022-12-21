@@ -38,11 +38,6 @@
 	HttpSession loginSession = request.getSession();
 	System.out.println(loginSession.getAttribute("userId"));
 	%>
-
-	<!--로그인이 안 됐으면-->
-	<c:if test="${userId eq null}">
-		<%response.sendRedirect("login/form"); %>
-	</c:if>
 	
 	<!--  로그인이 됐으면-->
 	<c:if test="${userId ne null}">
