@@ -28,9 +28,9 @@ public class RequestMapping {
         
         //mappings.put("/user/mypage", new myPageController());
         //uri 하나로 해서 get/post로 나눠 mapping
-        mappings.put("/user/mypage", new ForwardController("/user/mypage.jsp"));
+        mappings.put("/user/mypage", new myPageController());
         mappings.put("/user/mypage/edit", new ForwardController("/user/updateForm.jsp")); 
-        mappings.put("/user/mypage/dibList", new ListDibController()); 
+        mappings.put("/user/mypage/deleteDib", new DeleteDibController()); 
         
         //mappings.put("/user/mypage/update", new UpdateUserController());
         //mappings.put("/user/list", new ListUserController());

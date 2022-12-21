@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
-<html lang="en">
+<html lang="kr">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -120,81 +120,20 @@
 					⛔ 찜한 강의가 없습니다.💧 ⛔
 				</h6>
 			</c:if>			
-
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button" onclick="location.href='/lecommend/user/mypage'">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div><span>${userID}</span></div>
-				
 				
 			<c:forEach var="dib" items="${dibList}">
 				<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">
 						<span class="card-title"> ${dib.title}
-							<button class="btn_delete" type="button">X</button>
-						</span><br> ${dib.professor}
-						<p></p>
-						${dib.lecID} <br>${dib.week} ${dib.lecTime}
-						${dib.loc} ${dib.cNo}
+							<button class="btn_delete" type="button" 
+							onClick="location.href='/user/mypage/deleteDib'">X</button>
+						</span><br> ${dib.professor} <p/>
+						${dib.lecID} ${dib.cNo} <p/>
+						${dib.week} ${dib.lectime} ${dib.loc}
 						<button class="btn_wish" type="button">♡ 찜하기</button>
 					</div>
 				</div>
 			</c:forEach>
-			<!--  
-			
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button" onclick="onClick()">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						<span class="card-title"> 데베프
-							<button class="btn_delete" type="button">X</button>
-						</span><br> 박
-						<p></p>
-						화, 수
-						<button class="btn_wish" type="button">♡ 찜 삭제하기</button>
-					</div>
-				</div>
-				-->
-
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
