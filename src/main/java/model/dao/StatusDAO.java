@@ -62,14 +62,20 @@ public class StatusDAO {
 	// 수강여부 체크. 수강했다면 lecID 반환 미수강 상태면 0반환.
 	// 검색된 강의들 중 수강여부를 체크할 수 있다. 또는 인기강의들의 수강여부를 체크할 수 있다. 안쓸 수도 있지만 일단 넣음
 	public int findRegistered(String stuId, String lecId) throws SQLException {
-		String sql = "SELECT lecID FROM STATUS WHERE STUID = ? AND lecId = ?";
+		String sql = "SELECT count(lecID) as count FROM STATUS WHERE STUID = ? AND lecId = ? group by lecId";
 
 		Object[] param = new Object[] { stuId, lecId };
 		jdbcUtil.setSqlAndParameters(sql, param);
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			int result = rs.getInt("lecID");
+			int result = 0;
+			while (rs.next()) {
+				result = rs.getInt("count");
+			}
+			
+
+			System.out.println("result:" + result);
 
 			return result;
 		} catch (Exception ex) {

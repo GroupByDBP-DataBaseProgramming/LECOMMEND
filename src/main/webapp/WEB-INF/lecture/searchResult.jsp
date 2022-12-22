@@ -190,7 +190,7 @@ input[type=checkbox] {
 						${lec.lecID} <br>${lec.week}[${lec.lecTime}] ${lec.loc}
 						<button class="btn_wish" type="button">♡ 찜하기</button>
 
-
+						 
 						<c:set var="statusCheck" value="true" />
 						<c:set var="loop_flag" value="true" />
 
@@ -200,7 +200,7 @@ input[type=checkbox] {
 								<c:if test="${loop_flag}">
 									<c:if test="${lec.lecID eq resLec.lecID}">
 										<button class="btn_wish btn_status" type="submit"
-											name="status_O" value="${lec.lecID}"
+											name="statusId" value="${lec.lecID}"
 											onclick="status_Btn_Delete()">수강됨</button>
 										<c:set var="statusCheck" value="false" />
 										<c:set var="loop_flag" value="false" />
@@ -210,10 +210,11 @@ input[type=checkbox] {
 							</c:forEach>
 							<c:if test="${statusCheck}">
 								<button class="btn_wish btn_status btn_status_delete"
-									type="submit" onclick="status_Btn_Add()" name="status_X"
+									type="submit" onclick="status_Btn_Add()" name="statusId"
 									value="${lec.lecID}">수강</button>
 							</c:if>
 						</form>
+						 
 					</div>
 				</div>
 			</c:forEach>
