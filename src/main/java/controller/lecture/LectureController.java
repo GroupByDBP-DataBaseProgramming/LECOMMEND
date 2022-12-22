@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import controller.Controller;
 import model.dto.LectureDTO;
+import model.dto.StudentDTO;
 import model.service.LectureManager;
+import model.service.UserManager;
 
 public class LectureController implements Controller {
 	@Override
@@ -15,6 +17,12 @@ public class LectureController implements Controller {
     	LectureManager manager = LectureManager.getInstance();
     	List<LectureDTO> lecList = manager.findLectureList();
     	
+    	
+    	UserManager userManager = UserManager.getInstance();
+    	List<StudentDTO> stuList = userManager.showAllStudent();
+    	
+    	
+    	request.setAttribute("stuList", stuList);
     	request.setAttribute("lecList", lecList);
     	
 		//List<Community> commList = manager.findCommunityList();

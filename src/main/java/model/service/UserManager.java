@@ -49,6 +49,10 @@ public class UserManager {
 		}		
 		return user;
 	}
+	
+	public List<StudentDTO> showAllStudent() throws SQLException {
+		return studentDAO.showAllStudent();
+	}
 
 	public List<LectureDTO> findStudentDibList(String stuid) throws SQLException {
 			return studentDAO.findStudentDibList(stuid);

@@ -38,9 +38,11 @@ public class RequestMapping {
 
         // 사용자 정보 수정 폼 요청과 수정 요청 처리 병합      
         mappings.put("/user/update", new UpdateUserController());
-        
         mappings.put("/user/delete", new DeleteUserController());
         
+        
+        mappings.put("/lecture/update", new UpdateLectureController());
+        mappings.put("/lecture/update/form", new ForwardController("/lecture/updateLectureForm.jsp"));
 		mappings.put("/lecture/filter/form", new ForwardController("/lecture/filterForm.jsp"));
 		mappings.put("/lecture/filter", new FilterLectureController());
         mappings.put("/lecture/searchResult", new SearchResultLectureController());

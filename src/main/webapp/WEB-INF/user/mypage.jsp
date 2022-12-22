@@ -32,6 +32,15 @@
 	width:60%;
 }
 </style>
+<script>
+	$(document).ready(function(){
+		$("#btn_update_lec").click(function(){
+			document.adminLecForm.submit();
+		})
+	})
+
+
+</script>
 
 </head>
 <body>
@@ -54,30 +63,47 @@
 	%>
 	<jsp:include page="../header.jsp"></jsp:include>
 	<jsp:include page="../nav.jsp"></jsp:include>
-	<form name="deleteForm" method="POST" action="<c:url value='/lecture/delete'/>">		
-		<div class="lectureList">
-			<p class="list-cnt">📦 강의 리스트 📦</p>
 	
-			<c:forEach var="lec" items="${lecList}">
-				<div class="card-border card" style="width: 30rem;">
-					<div class="card-body">
-						
-						<span class="card-title"> ${lec.title}
-						</span><br> ${lec.professor}
-						<p></p>
-						${lec.lecID} <br>${lec.week}[${lec.lecTime}]
-						${lec.loc}
-						<button class="btn_delete" type="submit">지우기</button>
-					</div>
+	<div class="adminPage">
+			<form name="deleteUserForm" method="POST" action="<c:url value='/user/delete'/>">
+						<div class="userList">
+							<p class="list-cnt">📦 학생 리스트 📦</p>
+							<c:forEach var="user" items="${stuList}">
+								<div class="card-border card" style="width: 30rem;">
+									<div class="card-body">
+										<span class="card-title"><a href="">${user.stuID}</a></span>
+										<button class="btn_delete_user">지우기</button>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+			</form>	
+			<form method="GET" action= "<c:url value='/lecture/update/form'/>">
+				<div class="lectureList">
+					<p class="list-cnt">📦 강의 리스트 📦</p>
+					<c:forEach var="lec" items="${lecList}">
+						<div class="card-border card" style="width: 30rem;">
+							<div class="card-body">
+								<span class="card-title">
+								<jsp:include page="<c:url value='/lecture/update/form'/>" flush="false">
+									<jsp:param name="lecId" value="${lec.lecID}"/>
+								</jsp:include> ${lec.title}
+								</span><br> ${lec.professor}
+								<p></p>
+								${lec.lecID} <br>${lec.week}[${lec.lecTime}]
+								${lec.loc}
+								<button class="btn_update_lec" type="submit">수정하기</button>
+								<button class="btn_delete_lec">지우기</button>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
-			</c:forEach>
+			</form>
 		</div>
-		</form>
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 			crossorigin="anonymous"></script>
-		
 	<%
 		}
 		else{ 
@@ -93,7 +119,5 @@
 	}
 	%>
 	</c:if>
-	
-
 </body>
 </html>
