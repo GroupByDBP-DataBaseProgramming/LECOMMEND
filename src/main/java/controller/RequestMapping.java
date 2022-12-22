@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.lecture.*;
+import controller.status.CreateStatusController;
+import controller.status.DeleteStatusController;
+import controller.status.StatusController;
 import controller.user.*;
 
 
@@ -17,7 +20,6 @@ public class RequestMapping {
 
     public void initMapping() {
     	// 각 uri에 대응되는 controller 객체를 생성 및 저장
-        //mappings.put("/", new ForwardController("index.jsp"));
         mappings.put("/", new ForwardController("index.jsp"));
         mappings.put("/home", new ForwardController("/home.jsp"));
         mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
@@ -35,8 +37,6 @@ public class RequestMapping {
         //mappings.put("/user/mypage/edit", new UpdateUserController());
         
         //mappings.put("/user/mypage/update", new UpdateUserController());
-        //mappings.put("/user/list", new ListUserController());
-        //mappings.put("/user/view", new ViewUserController());
         
         // 회원 가입 폼 요청과 가입 요청 처리 병합 (폼에 커뮤니티 선택 메뉴 추가를 위함)
         mappings.put("/user/join", new JoinUserController());
@@ -50,12 +50,10 @@ public class RequestMapping {
 		mappings.put("/lecture/filter", new FilterLectureController());
         mappings.put("/lecture/searchResult", new SearchResultLectureController());
         
-        // 커뮤니티 관련 request URI 추가
-        //mappings.put("/community/list", new ListCommunityController());
-        //mappings.put("/community/view", new ViewCommunityController());
-        //mappings.put("/community/create/form", new ForwardController("/community/creationForm.jsp"));
-        //mappings.put("/community/create", new CreateCommunityController());
-        //mappings.put("/community/update", new UpdateCommunityController());
+        mappings.put("/lecture/searchResult/status", new StatusController()); 
+        //mappings.put("/lecture/searchResult/deleteStatus", new DeleteStatusController()); 
+        //mappings.put("/lecture/searchResult/createStatus", new CreateStatusController());
+    
         
         logger.info("Initialized Request Mapping!");
     }

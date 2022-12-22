@@ -190,21 +190,30 @@ input[type=checkbox] {
 						${lec.lecID} <br>${lec.week}[${lec.lecTime}] ${lec.loc}
 						<button class="btn_wish" type="button">♡ 찜하기</button>
 
-						<c:forEach var="resLec" items="${resultLecList}">
-							<!--<c:if test="${lec.lecID eq resLec.lecID}">
-								<button class="btn_wish btn_status" type="button">수강됨</button>
-							</c:if>-->
-							<c:choose>
-								<c:when test="${lec.lecID eq resLec.lecID}">
-									<button class="btn_wish btn_status" type="button" onclick="status_Btn_Delete()">수강됨</button>
-								</c:when>
 
-								<c:otherwise>
-									<button class="btn_wish btn_status btn_status_delete"
-										 type="button" onclick="status_Btn_Add()">수강</button>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
+						<c:set var="statusCheck" value="true" />
+						<c:set var="loop_flag" value="true" />
+
+						<form method="POST"
+							action="<c:url value='/lecture/searchResult/status'/>">
+							<c:forEach var="resLec" items="${resultLecList}">
+								<c:if test="${loop_flag}">
+									<c:if test="${lec.lecID eq resLec.lecID}">
+										<button class="btn_wish btn_status" type="submit"
+											name="status_O" value="${lec.lecID}"
+											onclick="status_Btn_Delete()">수강됨</button>
+										<c:set var="statusCheck" value="false" />
+										<c:set var="loop_flag" value="false" />
+									</c:if>
+								</c:if>
+
+							</c:forEach>
+							<c:if test="${statusCheck}">
+								<button class="btn_wish btn_status btn_status_delete"
+									type="submit" onclick="status_Btn_Add()" name="status_X"
+									value="${lec.lecID}">수강</button>
+							</c:if>
+						</form>
 					</div>
 				</div>
 			</c:forEach>
@@ -235,7 +244,7 @@ input[type=checkbox] {
 			function status_Btn_Add() {
 				alert('해당 과목을 수강하셨습니다.');
 			}
-			
+
 			function status_Btn_Delete() {
 				alert('해당 과목을 수강 취소했습니다.');
 			}

@@ -38,15 +38,16 @@ public class SearchResultLectureController implements Controller {
 				lecList = manager.findLectureByKeywordAndStatusX(userId, request.getParameter("loc").substring(0, 1),
 						request.getParameter("lecTime").substring(0, 1), request.getParameter("interest"),
 						request.getParameter("lecType"), request.getParameter("priority"));
-				//for (LectureDTO lec : lecList )
-					//log.debug("lec : {}", lec);
+				for (LectureDTO lec : lecList )
+					log.debug("lec : {}", lec);
 			} else {
 				lecList = manager.findLectureByKeywordAndStatusO(request.getParameter("loc").substring(0, 1),
 						request.getParameter("lecTime").substring(0, 1), request.getParameter("interest"),
 						request.getParameter("lecType"), request.getParameter("priority"));
 				
-				//for (LectureDTO lec : lecList )
-					//log.debug("lec STATUS O : {}", lec);
+				// 전체 검색
+				for (LectureDTO lec : lecList )
+					log.debug("lec STATUS O : {}", lec);
 				
 				resultLecList = manager.findLectureWithStatus(lecList, userId);
 				for (LectureDTO lec : resultLecList )

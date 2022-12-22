@@ -112,6 +112,12 @@ label {
 	margin-top: 15px;
 	text-align: center;
 }
+
+.errormsg {
+	text-align: center;
+	font-weight: bold;
+}
+
 </style>
 
 <script>
@@ -135,12 +141,23 @@ label {
 
 
 <body>
+
+
 	<div class="login-custom">
 		<main class="form-signin w-100 m-auto">
 			<form name="form" method="POST"
 				action="<c:url value='/user/login' />">
 
 				<h1 class="h2 mb-3 color-point">LEcommend</h1>
+
+				<!-- 로그인이 실패한 경우 exception 객체에 저장된 오류 메시지를 출력 -->
+				<div class="col-lg-12 ">
+					<c:if test="${loginFailed}">
+						<h6 class="text-danger errormsg">
+							<c:out value="${exception.getMessage()}" />
+						</h6>
+					</c:if>
+				</div>
 
 				<div class="form-floating">
 					<input type="text" name="stuId" class="form-control"
@@ -166,14 +183,7 @@ label {
 	</div>
 
 
-	<!-- 로그인이 실패한 경우 exception 객체에 저장된 오류 메시지를 출력 -->
-	<div class="col-lg-12">
-		<c:if test="${loginFailed}">
-			<h6 class="text-danger">
-				<c:out value="${exception.getMessage()}" />
-			</h6>
-		</c:if>
-	</div>
+
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
