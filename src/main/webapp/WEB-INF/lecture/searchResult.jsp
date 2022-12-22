@@ -42,7 +42,6 @@
 	display: inline-block;
 	float: right;
 	margin-right: 160px;
-	
 }
 
 .keywords {
@@ -79,11 +78,12 @@
 	font-weight: bold;
 }
 
-button.btn_wish_active {
+.btn_wish:hover {
 	font-weight: bold;
 	border: 1px solid #6f263d;
 	background-color: #fff;
 	color: #6f263d;
+	transition-duration: 1s;
 }
 
 .card-border {
@@ -114,7 +114,6 @@ button.btn_wish_active {
 .recommend-card {
 	text-align: center;
 	margin-bottom: 10px;
-	
 }
 
 .list-cnt {
@@ -123,15 +122,34 @@ button.btn_wish_active {
 	margin-bottom: 10px;
 	font-weight: bold;
 	text-align: center;
-
 }
 
-.text-danger{
+.text-danger {
 	text-align: center;
 	font-weight: bold;
 }
 
+.statusCheckFormCss {
+	margin-left: 50px;
+	margin-bottom: 10px;
+	width: 34.375rem;
+	text-align: right;
+	color: #6f263d;
+	font-weight: bold;
+}
 
+input[type=checkbox] {
+	accent-color: #6f263d;
+}
+
+.btn_status {
+	margin-right: 10px;
+}
+
+.btn_status_delete {
+	color: #6f263d;
+	background-color: #fff;
+}
 </style>
 </head>
 <body>
@@ -139,8 +157,15 @@ button.btn_wish_active {
 	<jsp:include page="../header.jsp"></jsp:include>
 	<jsp:include page="../nav.jsp"></jsp:include>
 
+
 	<div class="totalresult">
-	
+
+		<!-- <form class="statusCheckFormCss" name="statusCheckForm">
+			<input type="checkbox" name="statusCheck" id="statusCheck"
+				value="statusIncludeO" /> 과거 수강한 강의 X
+		</form>  -->
+
+
 		<div class="resultbox">
 			<p class="list-cnt">📦 검색 결과 📦</p>
 			<div class="keywordbox">
@@ -148,31 +173,63 @@ button.btn_wish_active {
 					<div class="keywords">${keyword}</div>
 				</c:forEach>
 			</div>
-			
+
 			<!-- <div class="list-cnt">총 10건</div> -->
 			<c:if test="${searchFailed}">
-				<h6 class="text-danger">
-					⛔ Keyword를 선택하지 않으셨으므로, 전체 강의를 검색합니다. ⛔
+				<h6 class="text-danger">⛔ Keyword를 선택하지 않으셨으므로, 전체 강의를 검색합니다. ⛔
 				</h6>
 			</c:if>
-			
+
 			<!--  검색 결과 -->
 			<c:forEach var="lec" items="${lecList}">
 				<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">
-						<span class="card-title"> ${lec.title}
+						<span class="card-title"> ${lec.title} <!-- <button class="btn_delete" type="button">X</button>  -->
 						</span><br> ${lec.professor}
 						<p></p>
-						${lec.lecID} <br>${lec.week}[${lec.lecTime}]
-						${lec.loc}
-						<form action="<c:url value='/lecture/searchResult/createDib'/>">
-							<button class="btn_wish" id="btn_before" 
-							name="lecID" value="${lec.lecID}" onClick="checkUser()" >♡ 찜하기</button>
-						</form>
-						<!--  <form action="<c:url value='/lecture/searchResult/deleteDib'/>">
-							<button class="btn_wish" id="btn_after_wish" 
-							name="lecID" type="submit" value="${lec.lecID}" onClick="changeBtn()" >♡ 찜해제</button>
-						</form>-->
+						${lec.lecID} <br>${lec.week}[${lec.lecTime}] ${lec.loc}
+						
+						<!-- 파라미터로 받은 dibList 해당 강의가 있는지 확인하는 코드 -->
+						<c:forEach var="dib" items="${dibList}">
+							<c:set var="isIn" value="false"/>
+							<c:choose>
+								<c:when test="${dib eq lec.lecID}">
+									<c:set var="isIn" value="true"/> 
+								</c:when>							
+							</c:choose>
+						</c:forEach>
+						
+						<!-- dibList 해당 강의가 있다면 해제버튼, 아니면 찜하기 버튼 -->
+						<c:choose>
+							<c:when test="${isIn eq 'true'}">
+								<form action="<c:url value='/user/mypage/deleteDib'/>">
+									<button class="btn_wish" id="btn_after" 
+									name="lecID" value="${userId}" onClick="checkUser()" >X 찜해제</button>
+								</form>	
+							</c:when>
+							<c:otherwise>
+								<form action="<c:url value='/lecture/searchResult/createDib'/>">
+									<button class="btn_wish" id="btn_before" 
+									name="lecID" value="${lec.lecID}" onClick="checkUser()" >♡ 찜하기</button>
+								</form>	
+							</c:otherwise>
+						</c:choose>
+
+						<c:forEach var="resLec" items="${resultLecList}">
+							<!--<c:if test="${lec.lecID eq resLec.lecID}">
+								<button class="btn_wish btn_status" type="button">수강됨</button>
+							</c:if>-->
+							<c:choose>
+								<c:when test="${lec.lecID eq resLec.lecID}">
+									<button class="btn_wish btn_status" type="button" onclick="status_Btn_Delete()">수강됨</button>
+								</c:when>
+
+								<c:otherwise>
+									<button class="btn_wish btn_status btn_status_delete"
+										 type="button" onclick="status_Btn_Add()">수강</button>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
 					</div>
 				</div>
 			</c:forEach>
@@ -197,7 +254,8 @@ button.btn_wish_active {
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-			crossorigin="anonymous"></script>
+			crossorigin="anonymous"
+			></script>
 
 	</div>
 </body>
@@ -209,8 +267,9 @@ button.btn_wish_active {
 	function checkUser() {
 		var userId = sessionStorage.getItem(<%=session.getAttribute("userId")%>);
 		console.log(userId)
-		if(userId == null)
-			alert("회원만 찜 할 수 있습니다.");
+		if(userId == null){
+			alert('회원가입 후 찜 선택/해제 할 수 있습니다.');
+		}
 	}
 	
 	function changeBtn()  {
@@ -221,6 +280,14 @@ button.btn_wish_active {
 			}
 
 		}
+	
+	function status_Btn_Add() {
+		alert('해당 과목을 수강하셨습니다.');
+	}
+	
+	function status_Btn_Delete() {
+		alert('해당 과목을 수강 취소했습니다.');
+	}
 </script>
 </html>
 

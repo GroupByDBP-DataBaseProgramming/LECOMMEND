@@ -16,6 +16,8 @@ public class CreateDibController implements Controller {
 		String stuId = (String) session.getAttribute("userId");
 		String lecId = request.getParameter("lecID");
 		
+		System.out.print(stuId + lecId + "last check");
+		
 		try {
 			DibManager manager = DibManager.getInstance();
 			int duplicated = 0, rslt = 1; //rslt이 negative 값

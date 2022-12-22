@@ -19,12 +19,10 @@ public class DeleteDibController implements Controller {
 		DibManager manager = DibManager.getInstance();
 		manager.remove(stuId, lecId);
 		
-		return "redirect:/user/mypage";
-		
-//		if(request.getContextPath().equals("/lecture/searchResult")) //찜해제를 강의 검색결과창에서 했을때
-//			return "redirect:/user/mypage"; //현재 mypage가 logoutcontroller로 매핑돼있으므로 수정필요
-//		else //찜해제를 마이페이지 에서 했을떄
-//			return "forward:/user/mypage"; //논의)forward가 필요한지
+		if(request.getContextPath().equals("/lecture/searchResult")) //찜해제를 강의 검색결과창에서 했을때
+			return "redirect:/lecture/searchResult"; //현재 mypage가 logoutcontroller로 매핑돼있으므로 수정필요
+		else //찜해제를 마이페이지 에서 했을떄
+			return "redirect:/user/mypage"; //논의)forward가 필요한지
 		
 				
 	}

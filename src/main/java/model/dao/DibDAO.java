@@ -149,4 +149,32 @@ public class DibDAO {
 		return null;
 
 	}
+	
+	//한 학생의 찜 아이디 목록
+	public List<String> listOfDibsID(String stuId) throws SQLException {
+		String sql = "SELECT l.lecId "
+				+ "FROM lecture l join dib d on d.lecID = l.lecID "
+				+ "WHERE d.stuID = ?";
+
+		Object[] param = new Object[] { stuId };
+		jdbcUtil.setSqlAndParameters(sql, param);
+
+		List<String> dibList = new ArrayList<String>();
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			while (rs.next()) {
+				String lecId = rs.getString("lecId");
+				dibList.add(lecId);
+			}
+			return dibList;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		return null;
+
+	}
 }

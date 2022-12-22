@@ -220,7 +220,6 @@ public class LectureDAO {
 						rs.getString("week"),
 						rs.getString("lectime"),
 						rs.getInt("cno"));
-				System.out.print(lecture.getTitle() + " 정보 들어감!!");
 			}
 			return lecture;
 		} catch (Exception ex) {

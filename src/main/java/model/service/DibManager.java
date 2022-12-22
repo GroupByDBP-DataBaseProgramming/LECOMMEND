@@ -50,5 +50,9 @@ public class DibManager {
 		//existing stu
 		return dibDAO.listOfDibs(stuId);
 	}
+	
+	public List<String> listOfDibsID(String stuId) throws SQLException {
+		return dibDAO.listOfDibsID(stuId);
+	}
 
 }
