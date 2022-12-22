@@ -18,9 +18,10 @@ public class CreateDibController implements Controller {
 		
 		try {
 			DibManager manager = DibManager.getInstance();
-			int duplicated = manager.duplicationCheck(stuId, lecId);
+			int duplicated = 0, rslt = 1; //rslt이 negative 값
 			
-			int rslt;			
+			if(!stuId.equals(null))
+				duplicated = manager.duplicationCheck(stuId, lecId);						
 			if(duplicated == 1)
 				rslt = manager.create(stuId, lecId);
 		} catch (Exception e) {

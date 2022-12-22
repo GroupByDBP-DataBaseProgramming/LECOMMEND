@@ -31,6 +31,7 @@ public class RequestMapping {
         mappings.put("/user/mypage", new myPageController());
         mappings.put("/user/mypage/edit", new ForwardController("/user/updateForm.jsp")); 
         mappings.put("/user/mypage/deleteDib", new DeleteDibController()); 
+        mappings.put("/user/mypage/othersDib", new OthersDibController());
         
         //mappings.put("/user/mypage/update", new UpdateUserController());
         //mappings.put("/user/list", new ListUserController());

@@ -107,14 +107,14 @@
 		<!--  인기 있는 강의 List -->
 		<div class="recommendbox">
 			<p class="list-cnt">💞 추천하는 강의 💞</p>
-			<c:forEach var="recLec" items="${recLecList}">
+			<c:forEach var="othDib" items="${othersDibList}">
 				<div class="card-border card recommend-card" style="width: 15rem;">
 					<div class="card-body">
-						<h5 class="card-title">${recLec.title}</h5>
-						${recLec.professor}
+						<h5 class="card-title">${othDib.title}</h5>
+						${othDib.professor}
 						<p></p>
-						${recLec.lecID} <br>${recLec.week}[${recLec.lecTime}]
-						${recLec.loc}
+						${othDib.lecID} <br>${othDib.week}[${othDib.lecTime}]
+						${othDib.loc}
 					</div>
 				</div>
 			</c:forEach>

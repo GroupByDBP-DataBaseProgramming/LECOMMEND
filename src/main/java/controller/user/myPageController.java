@@ -35,7 +35,10 @@ public class myPageController implements Controller {
 		List<LectureDTO> dibList = dManager.listOfDibs(updateId);
 		if(dibList.isEmpty())
 			request.setAttribute("searchFailed", true);
-		request.setAttribute("dibList", dibList);   	
+		request.setAttribute("dibList", dibList); 
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("othersDibList", session.getAttribute("othersDibList"));
 
 		return "/user/mypage.jsp";
 	}

@@ -26,6 +26,11 @@
   <servlet>
     <servlet-name>DispatcherServlet</servlet-name>
     <servlet-class>controller.DispatcherServlet</servlet-class>
+    
+	<init-param>
+	  <param-name>strictQuoteEscaping</param-name>
+	  <param-value>false</param-value>
+	</init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>DispatcherServlet</servlet-name>

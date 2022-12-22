@@ -20,11 +20,9 @@ public class ListDibController implements Controller {
 			
 			HttpSession session = request.getSession();
 			String userId = (String)session.getAttribute("userId");
-			System.out.print(userId + "testttt");
 	
 			//String stuID = request.getParameter("userId");
 			List<LectureDTO> dibList = manager.listOfDibs("test1");
-			System.out.print(dibList);
 	
 			// dibList를 request에 저장하여 전달
 			request.setAttribute("dibList", dibList);

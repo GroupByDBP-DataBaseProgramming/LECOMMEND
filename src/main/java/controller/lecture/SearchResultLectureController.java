@@ -57,8 +57,7 @@ public class SearchResultLectureController implements Controller {
 			
 			request.setAttribute("lecList", lecList);
 			request.setAttribute("keywordList", keywordList);
-			request.setAttribute("hotLecList", hotLecList);
-			
+			request.setAttribute("hotLecList", hotLecList);			
 			
 			return "/lecture/searchResult.jsp";
 		} catch (Exception e) {

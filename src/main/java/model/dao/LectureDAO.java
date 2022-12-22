@@ -203,7 +203,7 @@ public class LectureDAO {
 	 * [R] 주어진 Lecture ID에 해당하는 Lecture 정보를 데이터베이스에서 찾아 Lecture 도메인 클래스에 저장하여 반환.
 	 */
 	public LectureDTO findLecture(String lecId) throws SQLException {
-		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
+		String sql = "select lecid, title, professor, loc, week, lectime, cno "
 				+ "from lecture "
 				+ "where lecid = ?";
 		
@@ -220,6 +220,7 @@ public class LectureDAO {
 						rs.getString("week"),
 						rs.getString("lectime"),
 						rs.getInt("cno"));
+				System.out.print(lecture.getTitle() + " 정보 들어감!!");
 			}
 			return lecture;
 		} catch (Exception ex) {
@@ -237,10 +238,10 @@ public class LectureDAO {
 	 * [R] 찜 수가 많은 Lecture 5개를 List에 저장 및 반환
 	 */
 	public List<LectureDTO> findLecturesTop5() throws SQLException {
-		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
-				+ "	from lecture l join (select lecid, count(lecid) "
-				+ "	from dib group by lecid) sub on l.lecid = sub.lecid"
-				+ "	where rownum < 6";
+		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno " +
+				"from lecture l join (select lecid, count(lecid) as count " +
+				"from dib group by lecid order by count desc) sub on l.lecid = sub.lecid " +
+				"where rownum < 6";
 		
 		jdbcUtil.setSqlAndParameters(sql, null);
 		try {				
@@ -311,18 +312,23 @@ public class LectureDAO {
 	 * [R] Student가 찜한 강의를 찜한 다른 사용자들의 찜 List 중 가장 많이 찜한 Lecture를 List에 저장 및 반환
 	 */
 	public String[] findLecturesOtherStudentDib(String stuId, String lecId) throws SQLException {
-		String sql = "select dib2.lecid "
-				+ "from (select * from dib where stuid ! = ? and lecid = ?) dib1, dib dib2 "
+		String sql = "select dib2.lecid, COUNT(dib2.lecid) as count "
+				+ "from (select dibId, stuID, lecID from dib where stuid != ? and lecid = ?) dib1, dib dib2 "
 				+ "where dib1.stuid = dib2.stuid and dib1.lecid != dib2.lecid "
-				+ "group by dib2.lecid";
+				+ "group by dib2.lecid "
+				+ "order by count desc";
 		Object[] param = new Object[] { stuId, lecId };
 		jdbcUtil.setSqlAndParameters(sql, param);
+		
 		try {				
 			ResultSet rs = jdbcUtil.executeQuery(); 
 			String[] lecIdList = new String[5];
-			int i = 0;
+				
+			int i = 0;				
 			while (rs.next()) {
-				lecIdList[i] = rs.getString("dib2.lecid");
+				if (i == 5)
+					break;
+				lecIdList[i] = rs.getString("lecid");
 				i++;
 			}
 			return lecIdList;

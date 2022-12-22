@@ -167,7 +167,7 @@ button.btn_wish_active {
 						${lec.loc}
 						<form action="<c:url value='/lecture/searchResult/createDib'/>">
 							<button class="btn_wish" id="btn_before" 
-							name="lecID" type="submit" value="${lec.lecID}" onClick="changeBtn()" >♡ 찜하기</button>
+							name="lecID" value="${lec.lecID}" onClick="checkUser()" >♡ 찜하기</button>
 						</form>
 						<!--  <form action="<c:url value='/lecture/searchResult/deleteDib'/>">
 							<button class="btn_wish" id="btn_after_wish" 
@@ -205,6 +205,13 @@ button.btn_wish_active {
 	$("button").click(function() {
 	    toggleClass(".btn_wish_active");
 	});
+
+	function checkUser() {
+		var userId = sessionStorage.getItem(<%=session.getAttribute("userId")%>);
+		console.log(userId)
+		if(userId == null)
+			alert("회원만 찜 할 수 있습니다.");
+	}
 	
 	function changeBtn()  {
 		  const btn1 = document.getElementById('btn_before');

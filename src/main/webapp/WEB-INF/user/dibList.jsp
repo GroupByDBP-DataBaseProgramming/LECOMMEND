@@ -110,7 +110,10 @@
 						</span><br> ${dib.professor}
 						<p></p> 
 						${dib.lecID} ${dib.cNo}분반 <br>${dib.week}[${dib.lecTime}] ${dib.loc}
-						<button class="btn_wish" type="button">♡ 찜하기</button>
+						<form action="<c:url value='/user/mypage/othersDib'/>">
+							<button class="btn_wish" name="lecID" type="submit" value="${dib.lecID}">추천받기</button>
+						</form>
+						<!-- button에는 간단힌 추천받기 라고 쓰고 추천기능이 어떤건지 설명하는 html 있으면 좋을듯 -->
 					</div>
 				</div>
 			</c:forEach>

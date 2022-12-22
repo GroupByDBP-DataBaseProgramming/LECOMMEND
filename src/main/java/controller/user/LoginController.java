@@ -12,8 +12,6 @@ public class LoginController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userId = request.getParameter("stuId");
 		String password = request.getParameter("stuPw");
-		
-		System.out.println("<Logincontroller> userId: " + userId + " password: " + password);
 
 		try {
 			// 모델에 로그인 처리를 위임

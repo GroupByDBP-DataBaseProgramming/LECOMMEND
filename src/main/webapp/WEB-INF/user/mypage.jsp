@@ -45,7 +45,9 @@
 			<jsp:param name="userID" value="userID"/>
 			<jsp:param value="dibList" name="dibList"/>
 		</jsp:include></div>
-		<div class="rList"><jsp:include page="recommendList.jsp"></jsp:include></div>
+		<div class="rList"><jsp:include page="recommendList.jsp">
+			<jsp:param name="othersDibList" value="${othersDibList}" />
+		</jsp:include></div>
 	</div>
 
 
