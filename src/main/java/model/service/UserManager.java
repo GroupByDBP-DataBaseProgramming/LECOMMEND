@@ -63,6 +63,10 @@ public class UserManager {
 		throws SQLException, UserNotFoundException, PasswordMismatchException {
 		StudentDTO user = studentDAO.findUser(userId);
 		
+		if( user == null) {
+			throw new UserNotFoundException("회원 정보가 없습니다.");
+		}
+		
 		if (!user.matchPassword(password)) {
 			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
 		}

@@ -23,6 +23,8 @@ public class myPageController implements Controller {
 			log.debug("updateId : {}", updateId);
 			return "redirect:/user/login/form";
 		}
+		
+		
 
 		UserManager manager = UserManager.getInstance();
 		StudentDTO user = manager.findUser(updateId); // 수정하려는 사용자 정보 검색

@@ -38,21 +38,21 @@
 	HttpSession loginSession = request.getSession();
 	System.out.println(loginSession.getAttribute("userId"));
 	%>
-	
+
 	<!--  로그인이 됐으면-->
 	<c:if test="${userId ne null}">
 		<jsp:include page="../header.jsp"></jsp:include>
 		<jsp:include page="../nav.jsp"></jsp:include>
-	
+
 		<div class="structure">
 			<div class="info">
-        <jsp:include page="userInfo.jsp">
-          <jsp:param name="userId" value="userId" />
-				  <jsp:param name="major" value="major" />
-        </jsp:include>
-      </div>
+				<jsp:include page="userInfo.jsp">
+					<jsp:param name="userId" value="userId" />
+					<jsp:param name="major" value="major" />
+				</jsp:include>
+			</div>
 			<div class="dList"><jsp:include page="dibList.jsp"></jsp:include></div>
-      <div class="rList"><jsp:include page="recommendList.jsp"></jsp:include></div>
+			<div class="rList"><jsp:include page="recommendList.jsp"></jsp:include></div>
 		</div>
 	</c:if>
 
