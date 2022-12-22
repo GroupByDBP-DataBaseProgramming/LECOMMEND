@@ -99,7 +99,7 @@
 					⛔ 찜한 강의가 없습니다.💧 ⛔
 				</h6>
 			</c:if>			
-				
+
 			<c:forEach var="dib" items="${dibList}">
 				<div class="card-border card" style="width: 30rem;">
 					<div class="card-body">

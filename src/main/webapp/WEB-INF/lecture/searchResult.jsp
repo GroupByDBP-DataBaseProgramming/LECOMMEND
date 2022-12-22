@@ -204,7 +204,7 @@ input[type=checkbox] {
 							<c:when test="${isIn eq 'true'}">
 								<form action="<c:url value='/user/mypage/deleteDib'/>">
 									<button class="btn_wish" id="btn_after" 
-									name="lecID" value="${userId}" onClick="checkUser()" >X 찜해제</button>
+									name="lecID" value="${lec.lecID}" onClick="checkUser()" >X 찜해제</button>
 								</form>	
 							</c:when>
 							<c:otherwise>
