@@ -238,11 +238,47 @@ public class LectureDAO {
 	 */
 	public List<LectureDTO> findLecturesTop5() throws SQLException {
 		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
-				+ "	from lecture l join (select lecid, count(lecid) "
-				+ "	from dib group by lecid) sub on l.lecid = sub.lecid"
-				+ "	where rownum < 6";
+				+ "from lecture l join (select lecid, count(lecid) as count "
+				+ "from dib group by lecid order by count desc) sub on l.lecid = sub.lecid "
+				+ "where rownum < 6";
 		
 		jdbcUtil.setSqlAndParameters(sql, null);
+		try {				
+			ResultSet rs = jdbcUtil.executeQuery(); 
+			List<LectureDTO> lectureList = new ArrayList<LectureDTO>(); 
+			while (rs.next()) {
+				LectureDTO lecture = new LectureDTO(
+						rs.getString("lecid"), 
+						rs.getString("title"),
+						rs.getString("professor"), 
+						rs.getString("loc"), 
+						rs.getString("week"),
+						rs.getString("lectime"),
+						rs.getInt("cno"));
+				lectureList.add(lecture); 
+			}
+			return lectureList;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();	// resource 반환
+		}		
+		return null;
+	}
+	
+	/**
+	 * [R] student가 수강한 강의를 리스트에 저장 및 반환
+	 */
+	public List<LectureDTO> findStatusLectures(String userId) throws SQLException {
+		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
+				+ "from status s join lecture l on s.lecid = l.lecid "
+				+ "where s.stuid = ?";
+		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] { userId });
+		
 		try {				
 			ResultSet rs = jdbcUtil.executeQuery(); 
 			List<LectureDTO> lectureList = new ArrayList<LectureDTO>(); 
@@ -281,6 +317,7 @@ public class LectureDAO {
 				+ "where rownum < 6";
 		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] { major });
+		
 		try {				
 			ResultSet rs = jdbcUtil.executeQuery(); 
 			List<LectureDTO> lectureList = new ArrayList<LectureDTO>(); 
@@ -311,10 +348,11 @@ public class LectureDAO {
 	 * [R] Student가 찜한 강의를 찜한 다른 사용자들의 찜 List 중 가장 많이 찜한 Lecture를 List에 저장 및 반환
 	 */
 	public String[] findLecturesOtherStudentDib(String stuId, String lecId) throws SQLException {
-		String sql = "select dib2.lecid "
-				+ "from (select * from dib where stuid ! = ? and lecid = ?) dib1, dib dib2 "
+		String sql = "select dib2.lecid, COUNT(dib2.lecid) as count "
+				+ "from (select dibId, stuID, lecID from dib where stuid != ? and lecid = ?) dib1, dib dib2 "
 				+ "where dib1.stuid = dib2.stuid and dib1.lecid != dib2.lecid "
-				+ "group by dib2.lecid";
+				+ "group by dib2.lecid "
+				+ "order by count desc";
 		Object[] param = new Object[] { stuId, lecId };
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
@@ -322,7 +360,9 @@ public class LectureDAO {
 			String[] lecIdList = new String[5];
 			int i = 0;
 			while (rs.next()) {
-				lecIdList[i] = rs.getString("dib2.lecid");
+				if (i == 5)
+					break;
+				lecIdList[i] = rs.getString("lecid");
 				i++;
 			}
 			return lecIdList;
@@ -588,6 +628,123 @@ public class LectureDAO {
 		
 		Object[] param = new Object[] { interest };				
 		
+		jdbcUtil.setSqlAndParameters(sql, param);
+		try {				
+			ResultSet rs = jdbcUtil.executeQuery(); 
+			List<LectureDTO> lectureList = new ArrayList<LectureDTO>(); 
+			while (rs.next()) {
+				LectureDTO lecture = new LectureDTO(
+						rs.getString("lecid"), 
+						rs.getString("title"),
+						rs.getString("professor"), 
+						rs.getString("loc"), 
+						rs.getString("week"),
+						rs.getString("lectime"),
+						rs.getInt("cno"));
+				lectureList.add(lecture); 
+			}
+			return lectureList;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();	
+		}		
+		return null;
+	}
+	
+	
+	/**
+	 * [R] 키워드로 검색된 Lecture를 List에 저장 및 반환 // 수강했던 강의 포함하고 전체 검색
+	 */
+	public List<LectureDTO> findLectureByKeywordAndStatusO(String loc, String lecTime, String interest, String lecType, String priority) throws SQLException {
+		
+		
+		String sql = "select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno "
+				+ "from lecture l join optionalinfo o on l.lecid = o.lecid ";
+		
+		
+		Object[] param;
+		if (priority.equals("p1")) {
+			String sql2 = "where o.interest = ? and o.loc LIKE '%" + loc + "%'";
+			sql = sql + sql2;		
+			param = new Object[] { interest };				
+			
+		}
+		else if(priority.equals("p2")) {
+			String sql2 = "where (o.interest = ? and o.lecType = ?)";
+			sql = sql + sql2;
+			param = new Object[] { interest, lecType };		
+		}
+		else {
+			String sql2 = "where (o.interest = ? and o.lecTime LIKE '%" + lecTime + "%')";
+			sql = sql + sql2;
+			param = new Object[] { interest };				
+		}
+		
+	
+		jdbcUtil.setSqlAndParameters(sql, param);
+		try {				
+			ResultSet rs = jdbcUtil.executeQuery(); 
+			List<LectureDTO> lectureList = new ArrayList<LectureDTO>(); 
+			while (rs.next()) {
+				LectureDTO lecture = new LectureDTO(
+						rs.getString("lecid"), 
+						rs.getString("title"),
+						rs.getString("professor"), 
+						rs.getString("loc"), 
+						rs.getString("week"),
+						rs.getString("lectime"),
+						rs.getInt("cno"));
+				lectureList.add(lecture); 
+			}
+			return lectureList;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();	
+		}		
+		return null;
+	}
+	
+	
+	/**
+	 * [R] 키워드로 검색된 Lecture를 List에 저장 및 반환 // 수강했던 강의 포함하지 않고 검색
+	 */
+	public List<LectureDTO> findLectureByKeywordAndStatusX(String stuid, String loc, String lecTime, String interest, String lecType, String priority) throws SQLException {
+		
+		
+		String sql = "select sub.lecid, sub.title, sub.professor, sub.loc, sub.week, sub.lectime, sub.cno, sub.stuid "
+				+ "from (select l.lecid, l.title, l.professor, l.loc, l.week, l.lectime, l.cno, s.stuid "
+				+ "from lecture l left join (select * from status where stuid = ?) s "
+				+ "on l.lecid = s.lecid "
+				+ "where stuid IS NULL) sub join optionalinfo o on sub.lecid = o.lecid ";
+		
+		
+		Object[] param;
+		if (priority.equals("p1")) {
+			String sql2 = "where o.interest = ? and o.loc LIKE '%" + loc + "%'";
+			sql = sql + sql2;		
+			param = new Object[] { stuid, interest };				
+			
+		}
+		else if(priority.equals("p2")) {
+			String sql2 = "where (o.interest = ? and o.lecType = ?)";
+			sql = sql + sql2;
+			param = new Object[] { stuid, interest, lecType };		
+		}
+		else {
+			String sql2 = "where (o.interest = ? and o.lecTime LIKE '%" + lecTime + "%')";
+			sql = sql + sql2;
+			param = new Object[] { stuid, interest };				
+		}
+		System.out.print(sql);
+	
 		jdbcUtil.setSqlAndParameters(sql, param);
 		try {				
 			ResultSet rs = jdbcUtil.executeQuery(); 

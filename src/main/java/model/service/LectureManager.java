@@ -106,6 +106,32 @@ public class LectureManager {
 	public List<LectureDTO> recommendLectures(String stuid, String lecid) throws Exception {
 		return lecAanlysis.recommendLectures(stuid, lecid);
 	}
+	
+	// 과거 강의 포함 X 검색
+	public List<LectureDTO> findLectureByKeywordAndStatusX(String stuid, String loc, String lecTime, String interest, String lecType, String priority) throws Exception {
+		return lecDAO.findLectureByKeywordAndStatusX(stuid, loc, lecTime, interest, lecType, priority);
+	}
+
+	// 과거 강의 포함 O 검색 (전체 검색)
+	public List<LectureDTO> findLectureByKeywordAndStatusO(String loc, String lecTime, String interest, String lecType, String priority) throws Exception {
+		return lecDAO.findLectureByKeywordAndStatusO(loc, lecTime, interest, lecType, priority);
+	}
+	
+	// 전체 검색 시 나온 결과 중 user가 수강했던 강의 알아내기
+	public List<LectureDTO> findLectureWithStatus(List<LectureDTO> searchLec, String userId) throws Exception {
+		return lecAanlysis.findLectureWithStatus(searchLec, userId);
+	}
+	
+	
+	// user가 수강한 강의 검색
+	public List<LectureDTO> findStatusLectures(String userId) throws Exception {
+		return lecDAO.findStatusLectures(userId);
+	}
+	
+	//
+	public List<LectureDTO> searchLecturesWithStatusX(List<LectureDTO> searchLec, List<LectureDTO> statusLec) throws Exception {
+		return lecAanlysis.searchLecturesWithStatusX(searchLec, statusLec);
+	}
 
 
 	public LectureDAO getLectureDAO() {

@@ -42,7 +42,6 @@
 	display: inline-block;
 	float: right;
 	margin-right: 160px;
-	
 }
 
 .keywords {
@@ -115,7 +114,6 @@
 .recommend-card {
 	text-align: center;
 	margin-bottom: 10px;
-	
 }
 
 .list-cnt {
@@ -124,14 +122,29 @@
 	margin-bottom: 10px;
 	font-weight: bold;
 	text-align: center;
-
 }
 
-.text-danger{
+.text-danger {
 	text-align: center;
 	font-weight: bold;
 }
 
+.statusCheckFormCss {
+	margin-left: 50px;
+	margin-bottom: 10px;
+	width: 34.375rem;
+	text-align: right;
+	color: #6f263d;
+	font-weight: bold;
+}
+
+input[type=checkbox] {
+	accent-color: #6f263d;
+}
+
+.btn_status {
+	margin-right: 10px;
+}
 
 </style>
 </head>
@@ -139,9 +152,34 @@
 
 	<jsp:include page="../header.jsp"></jsp:include>
 	<jsp:include page="../nav.jsp"></jsp:include>
-${test}
+
+
 	<div class="totalresult">
-	
+
+		<form class="statusCheckFormCss" name="statusCheckForm">
+			<input type="checkbox" name="statusCheck" id="statusCheck"
+				value="statusIncludeO" /> 과거 수강한 강의 X
+		</form>
+
+
+		<c:forEach var="lec" items="${resultLecList}">
+			<div class="card-border card" style="width: 30rem;">
+				<div class="card-body">
+					<span class="card-title"> ${lec.title}
+						<button class="btn_delete" type="button">X</button>
+					</span><br> ${lec.professor}
+					<p></p>
+					${lec.lecID} <br>${lec.week}[${lec.lecTime}] ${lec.loc}
+					<button class="btn_wish" type="button">♡ 찜하기</button>
+					<button class="btn_wish" type="button">이미 수강됨</button>
+				</div>
+			</div>
+		</c:forEach>
+
+
+		---------------------------------------------------------------------------------------------------------
+
+
 		<div class="resultbox">
 			<p class="list-cnt">📦 검색 결과 📦</p>
 			<div class="keywordbox">
@@ -149,14 +187,13 @@ ${test}
 					<div class="keywords">${keyword}</div>
 				</c:forEach>
 			</div>
-			
+
 			<!-- <div class="list-cnt">총 10건</div> -->
 			<c:if test="${searchFailed}">
-				<h6 class="text-danger">
-					⛔ Keyword를 선택하지 않으셨으므로, 전체 강의를 검색합니다. ⛔
+				<h6 class="text-danger">⛔ Keyword를 선택하지 않으셨으므로, 전체 강의를 검색합니다. ⛔
 				</h6>
 			</c:if>
-			
+
 			<!--  검색 결과 -->
 			<c:forEach var="lec" items="${lecList}">
 				<div class="card-border card" style="width: 30rem;">
@@ -165,9 +202,14 @@ ${test}
 							<button class="btn_delete" type="button">X</button>
 						</span><br> ${lec.professor}
 						<p></p>
-						${lec.lecID} <br>${lec.week}[${lec.lecTime}]
-						${lec.loc}
+						${lec.lecID} <br>${lec.week}[${lec.lecTime}] ${lec.loc}
 						<button class="btn_wish" type="button">♡ 찜하기</button>
+
+						<c:forEach var="resLec" items="${resultLecList}">
+							<c:if test="${lec.lecID eq resLec.lecID}">
+								<button class="btn_wish btn_status" type="button">수강됨</button>
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 			</c:forEach>

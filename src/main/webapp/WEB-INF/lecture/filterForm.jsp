@@ -54,7 +54,7 @@ request.setAttribute("onOffList", onOffList);
 
 .keywordCatagory {
 	padding-left: 20px;
-} 
+}
 </style>
 </head>
 <body>
@@ -181,8 +181,8 @@ request.setAttribute("onOffList", onOffList);
 				</tr>
 				<tr>
 					<td class="keywordCatagory keywordhr">👩‍ 수강인원</td>
-					<td class="keywordhr"><input type="number" class="occupancyBtn" name="occupancy"
-						min="1" max="200" required></td>
+					<td class="keywordhr"><input type="number"
+						class="occupancyBtn" name="occupancy" min="1" max="200" required></td>
 				</tr>
 				<tr>
 					<td class="keywordCatagory keywordhr">🔖‍ 과거 수강</td>
